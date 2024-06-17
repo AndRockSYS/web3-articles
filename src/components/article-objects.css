@@ -4,7 +4,7 @@ div#date {
 
     display: flex;
     align-items: center;
-    column-gap: 0.2rem;
+    column-gap: 0.4rem;
 
     background-color: var(--light-gray);
     border-radius: 10px;
@@ -18,7 +18,7 @@ div#date {
 div#tags {
     display: flex;
     justify-content: flex-start;
-    column-gap: 0.2rem;
+    column-gap: 0.4rem;
 
     > #tag {
         padding: 0.2rem;

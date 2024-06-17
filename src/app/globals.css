@@ -3,6 +3,12 @@
     --light-gray: #eeeeee;
     --dark-gray: #929aab;
     --black: #393e46;
+
+    --primary: #85dfe1;
+    --secondary: #4bbfc2;
+    /* 
+    --primary: #3dafb3;
+    --secondary: #1e7a7b; */
 }
 
 * {
@@ -40,7 +46,7 @@ body {
     background-color: var(--white);
 
     > main {
-        margin-top: 3.55rem;
+        margin-top: 4.15rem;
 
         display: flex;
         flex-direction: column;
@@ -50,7 +56,20 @@ body {
 
 a,
 button {
-    color: inherit;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 10px;
+    background: none;
+    background-color: var(--secondary);
+
+    color: var(--white);
     text-decoration: none;
     cursor: pointer;
+
+    transition: all 200ms;
+}
+
+a:hover,
+button:hover {
+    box-shadow: 0 0 10px 5px var(--primary);
 }

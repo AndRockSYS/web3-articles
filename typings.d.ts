@@ -5,4 +5,6 @@ export interface ArticleBlock {
     mainImage: string;
     name: string;
     description: string;
+
+    tags: string;
 }

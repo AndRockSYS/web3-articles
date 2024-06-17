@@ -1,7 +1,8 @@
 article.preview {
     max-width: 20rem;
+    max-height: 25rem;
 
-    border: 1px solid var(--black);
+    border: 1px solid var(--dark-gray);
     border-radius: 10px;
 
     overflow: hidden;
@@ -14,10 +15,24 @@ article.preview {
     > div {
         padding: 0.5rem;
 
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+
         > div {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
+
+        > h2 {
+            max-height: 2.5rem;
+            overflow: hidden;
+        }
+    }
+
+    @media screen and (max-width: 900px) {
+        max-width: 80dvw;
+        max-height: 30rem;
     }
 }

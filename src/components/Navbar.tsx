@@ -14,7 +14,7 @@ export default function Navbar() {
     const buttonMessage = useMemo(
         () =>
             account
-                ? account.address.slice(0, 4) + '...' + account.address.slice(60, 64)
+                ? account.address.slice(0, 4) + '...' + account.address.slice(62, 66)
                 : 'Connect',
         [account]
     );

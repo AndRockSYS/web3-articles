@@ -1,7 +1,7 @@
 :root {
     --white: #f7f7f7;
     --light-gray: #eeeeee;
-    --dark-hray: #929aab;
+    --dark-gray: #929aab;
     --black: #393e46;
 }
 
@@ -9,6 +9,25 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+
+    font-size: 16px;
+    font-size: clamp(6px, 2.5dvw, 16px);
+    font-weight: 400;
+    color: var(--black);
+}
+
+h1,
+h1 > * {
+    font-size: 1.2rem;
+}
+
+span {
+    font-weight: 600;
+}
+
+h3,
+h3 > * {
+    font-size: 0.8rem;
 }
 
 html,
@@ -19,6 +38,14 @@ body {
 
 body {
     background-color: var(--white);
+
+    > main {
+        margin-top: 3.55rem;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 a,

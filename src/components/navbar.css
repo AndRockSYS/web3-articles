@@ -8,5 +8,7 @@ nav {
     display: flex;
     justify-content: space-between;
 
+    border-bottom: 1px solid var(--dark-gray);
+
     background-color: var(--white);
 }

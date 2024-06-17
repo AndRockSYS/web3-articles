@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useMemo } from 'react';
 
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
@@ -22,15 +23,31 @@ export default function Navbar() {
     return (
         <nav>
             <h1>Mirror Copy</h1>
-            <button
-                onClick={() => {
-                    if ('aptos' in window) connect(PetraWalletName);
-                    else window.open('https://petra.app/', `_blank`);
-                }}
-            >
-                <Image src='/icons/wallet.svg' alt='wallet' height={32} width={32} />
-                {buttonMessage}
-            </button>
+            <div>
+                {useMemo(() => {
+                    if (account)
+                        return (
+                            <Link href='/add-article'>
+                                <Image
+                                    src='/icons/create-article.svg'
+                                    alt='wallet'
+                                    height={32}
+                                    width={32}
+                                />
+                                Create
+                            </Link>
+                        );
+                }, [account])}
+                <button
+                    onClick={() => {
+                        if ('aptos' in window) connect(PetraWalletName);
+                        else window.open('https://petra.app/', `_blank`);
+                    }}
+                >
+                    <Image src='/icons/wallet.svg' alt='wallet' height={32} width={32} />
+                    {buttonMessage}
+                </button>
+            </div>
         </nav>
     );
 }

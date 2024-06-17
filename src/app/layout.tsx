@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
 
 import Navbar from '@/components/Navbar';
+import AptosProvider from '@/context/AptosProvider';
 
 import './globals.css';
 
@@ -19,10 +20,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='en'>
-            <body className={sans.className}>
-                <Navbar />
-                {children}
-            </body>
+            <AptosProvider>
+                <body className={sans.className}>
+                    <Navbar />
+                    {children}
+                </body>
+            </AptosProvider>
         </html>
     );
 }

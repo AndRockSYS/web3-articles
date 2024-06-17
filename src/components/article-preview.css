@@ -1,0 +1,23 @@
+article.preview {
+    max-width: 20rem;
+
+    border: 1px solid var(--black);
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    img {
+        max-width: inherit;
+        height: auto;
+    }
+
+    > div {
+        padding: 0.5rem;
+
+        > div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+}

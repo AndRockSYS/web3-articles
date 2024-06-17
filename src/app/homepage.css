@@ -7,7 +7,8 @@ main.home {
         display: grid;
         grid-template-columns: repeat(auto-fill, 20rem);
         justify-content: center;
-        gap: 1rem;
+
+        gap: inherit;
 
         @media screen and (max-width: 900px) {
             display: flex;

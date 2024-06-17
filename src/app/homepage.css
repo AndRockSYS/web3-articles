@@ -1,17 +1,4 @@
 main.home {
-    > aside {
-        width: 100%;
-        height: fit-content;
-
-        padding: 1rem;
-
-        font-size: 5rem;
-        text-align: center;
-
-        border-top: 1px solid var(--dark-gray);
-        border-bottom: 1px solid var(--dark-gray);
-    }
-
     > section {
         width: 100%;
 
@@ -26,6 +13,15 @@ main.home {
             display: flex;
             flex-direction: column;
             align-items: center;
+
+            > article {
+                max-width: 100dvw;
+                max-height: fit-content;
+
+                border-left: none;
+                border-right: none;
+                border-radius: 0;
+            }
         }
     }
 }

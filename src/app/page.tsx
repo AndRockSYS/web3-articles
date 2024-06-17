@@ -91,7 +91,6 @@ export default function Home() {
 
     return (
         <main className='home'>
-            <aside>The home for web3 publishing</aside>
             <section>
                 {articles.map((article) => (
                     <ArticlePreview key={article.timestamp} article={article} />

@@ -1,4 +1,8 @@
 :root {
+    --white: #f7f7f7;
+    --light-gray: #eeeeee;
+    --dark-hray: #929aab;
+    --black: #393e46;
 }
 
 * {
@@ -14,6 +18,7 @@ body {
 }
 
 body {
+    background-color: var(--white);
 }
 
 a,

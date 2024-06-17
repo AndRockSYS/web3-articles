@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
@@ -10,6 +11,8 @@ import { PetraWalletName } from 'petra-plugin-wallet-adapter';
 import './navbar.css';
 
 export default function Navbar() {
+    const path = usePathname();
+
     const { connect, account } = useWallet();
 
     const buttonMessage = useMemo(
@@ -22,11 +25,23 @@ export default function Navbar() {
 
     return (
         <nav>
-            <h1>Mirror Copy</h1>
+            <Link className='empty' href={'/'}>
+                <h1>Mirror Copy</h1>
+            </Link>
             <div>
                 {useMemo(() => {
                     if (account)
-                        return (
+                        return path.includes('add-article') ? (
+                            <button>
+                                <Image
+                                    src={'/icons/send.svg'}
+                                    alt='send'
+                                    width={32}
+                                    height={32}
+                                ></Image>
+                                Publish
+                            </button>
+                        ) : (
                             <Link href='/add-article'>
                                 <Image
                                     src='/icons/create-article.svg'
@@ -37,7 +52,7 @@ export default function Navbar() {
                                 Create
                             </Link>
                         );
-                }, [account])}
+                }, [account, path])}
                 <button
                     onClick={() => {
                         if ('aptos' in window) connect(PetraWalletName);

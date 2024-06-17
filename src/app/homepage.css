@@ -14,8 +14,10 @@ main.home {
             flex-direction: column;
             align-items: center;
 
+            padding: 1rem 0;
+
             > article {
-                max-width: 100dvw;
+                max-width: 100%;
                 max-height: fit-content;
 
                 border-left: none;

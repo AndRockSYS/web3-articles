@@ -12,4 +12,16 @@ nav {
     border-bottom: 1px solid var(--dark-gray);
 
     background-color: var(--white);
+
+    > button {
+        display: flex;
+        align-items: center;
+        column-gap: 0.4rem;
+
+        > img {
+            width: 1.5rem;
+            height: 1.5rem;
+            filter: invert();
+        }
+    }
 }

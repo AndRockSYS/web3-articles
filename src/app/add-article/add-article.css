@@ -1,0 +1,61 @@
+.add-article {
+    padding: 1rem;
+
+    p {
+        width: 70dvw;
+
+        cursor: text;
+    }
+
+    > div {
+        position: relative;
+    }
+
+    > div > ul {
+        width: 9.5rem;
+
+        position: absolute;
+        transform: translate(0, -6.4rem);
+
+        list-style: none;
+
+        background-color: var(--light-gray);
+        border: 1px solid var(--dark-gray);
+        border-radius: 10px;
+
+        > li {
+            padding: 0 0.4rem;
+
+            display: flex;
+            align-items: center;
+            column-gap: 0.4rem;
+
+            cursor: pointer;
+
+            img {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+        }
+    }
+
+    p:first-child {
+        font-size: 4rem;
+        text-align: center;
+
+        color: var(--secondary);
+    }
+
+    p:nth-child(2) {
+        font-size: 1.5rem;
+    }
+
+    p:empty::before {
+        content: attr(custom-placeholder);
+        color: var(--dark-gray);
+    }
+
+    p:focus {
+        outline: none;
+    }
+}

@@ -1,10 +1,11 @@
-export interface ArticleBlock {
+export interface Article {
     creator: string;
     timestamp: number;
 
-    mainImage: string;
-    name: string;
+    coverImage: string;
+    title: string;
+    tags: string;
     description: string;
 
-    tags: string;
+    article: string;
 }

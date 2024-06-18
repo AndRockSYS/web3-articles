@@ -32,7 +32,7 @@ export default function Navbar() {
                 {useMemo(() => {
                     if (account)
                         return path.includes('add-article') ? (
-                            <button>
+                            <button id='blue-button'>
                                 <Image
                                     src={'/icons/send.svg'}
                                     alt='send'
@@ -42,7 +42,7 @@ export default function Navbar() {
                                 Publish
                             </button>
                         ) : (
-                            <Link href='/add-article'>
+                            <Link id='blue-button' href='/add-article'>
                                 <Image
                                     src='/icons/create-article.svg'
                                     alt='wallet'
@@ -54,6 +54,7 @@ export default function Navbar() {
                         );
                 }, [account, path])}
                 <button
+                    id='blue-button'
                     onClick={() => {
                         if ('aptos' in window) connect(PetraWalletName);
                         else window.open('https://petra.app/', `_blank`);

@@ -1,5 +1,6 @@
 'use client';
 
+import { Image as IMG } from 'image-js';
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
@@ -35,8 +36,10 @@ export default function AddArticle() {
 
     const handleImageInput = async (image: File) => {
         const arrayBuffer = await image.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
-        setCoverImage(`data:image/png;base64,${buffer.toString('base64')}`);
+        const bfr = await IMG.load(Buffer.from(arrayBuffer));
+        const resizedImage = bfr.resize({ height: 600, preserveAspectRatio: true });
+        const buffer = resizedImage.toBuffer();
+        setCoverImage(`data:image/png;base64,${Buffer.from(buffer).toString('base64')}`);
     };
 
     return (

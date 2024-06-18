@@ -4,11 +4,13 @@ import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
 import useElements from '@/hooks/useElements';
+import useArticle from '@/hooks/useArticle';
 
 import './add-article.css';
 
 export default function AddArticle() {
     const { addElement, addImage, getElements } = useElements();
+    const { packArticle } = useArticle();
 
     const [coverImage, setCoverImage] = useState('');
 
@@ -39,6 +41,10 @@ export default function AddArticle() {
 
     return (
         <main className='add-article'>
+            <button id='blue-button' onClick={packArticle}>
+                <Image src={'/icons/send.svg'} alt='send' width={32} height={32}></Image>
+                Publish
+            </button>
             {useMemo(
                 () =>
                     coverImage ? (
@@ -113,6 +119,7 @@ export default function AddArticle() {
             <div className='article'>
                 <p id='article' contentEditable custom-placeholder='What do you want to do'></p>
             </div>
+
             <div className='tool'>
                 <ul>
                     {elements.map((element) => (

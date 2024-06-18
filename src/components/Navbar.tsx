@@ -32,15 +32,7 @@ export default function Navbar() {
                 {useMemo(() => {
                     if (account)
                         return path.includes('add-article') ? (
-                            <button id='blue-button'>
-                                <Image
-                                    src={'/icons/send.svg'}
-                                    alt='send'
-                                    width={32}
-                                    height={32}
-                                ></Image>
-                                Publish
-                            </button>
+                            <></>
                         ) : (
                             <Link id='blue-button' href='/add-article'>
                                 <Image

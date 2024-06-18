@@ -45,7 +45,7 @@
         }
     }
 
-    > div.cover-input,
+    div.cover-input,
     > div.tool li {
         position: relative;
 
@@ -70,6 +70,8 @@
     }
 
     > div.tool > ul {
+        z-index: 3;
+
         width: 9.5rem;
 
         padding: 0.4rem;
@@ -86,6 +88,8 @@
         border-radius: 10px;
 
         > li {
+            z-index: inherit;
+
             display: flex;
             align-items: center;
             column-gap: 0.4rem;
@@ -129,7 +133,7 @@
     }
 
     div.article {
-        height: 50dvh;
+        height: 35dvh;
 
         display: flex;
         flex-direction: column;

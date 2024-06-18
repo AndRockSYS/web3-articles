@@ -55,15 +55,16 @@ body {
     }
 }
 
-a,
-button {
+a {
+    text-decoration: none;
+}
+
+#blue-button,
+#gray-button {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 10px;
-    background: none;
-    background-color: var(--secondary);
 
-    color: var(--white);
     text-decoration: none;
     cursor: pointer;
 
@@ -76,13 +77,31 @@ button {
     > img {
         width: 1.5rem;
         height: 1.5rem;
+    }
+}
+
+#blue-button {
+    background-color: var(--secondary);
+
+    color: var(--white);
+
+    > img {
         filter: invert();
     }
 }
 
-a:hover,
-button:hover {
+#blue-button:hover {
     box-shadow: 0 0 10px 5px var(--primary);
+}
+
+#gray-button {
+    background-color: var(--light-gray);
+
+    box-shadow: 0 0 10px var(--dark-gray);
+}
+
+#gray-button:hover {
+    box-shadow: 0 0 10px 2px var(--dark-gray);
 }
 
 .empty {

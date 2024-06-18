@@ -26,8 +26,14 @@ export default function ArticlePreview({ article }: Props) {
                 <h2>{article.description}</h2>
                 {toTags(article.tags)}
                 <div>
-                    <Link href=''>Read</Link>
-                    <Link href='https://explorer.aptoslabs.com/?network=mainnet' target='_blank'>
+                    <Link id='blue-button' href=''>
+                        Read
+                    </Link>
+                    <Link
+                        id='blue-button'
+                        href='https://explorer.aptoslabs.com/?network=mainnet'
+                        target='_blank'
+                    >
                         Open on Explorer
                     </Link>
                 </div>

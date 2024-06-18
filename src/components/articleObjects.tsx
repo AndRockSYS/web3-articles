@@ -25,6 +25,7 @@ export function toDateTag(timestamp: number): JSX.Element {
 }
 
 export function toTags(tags: string): JSX.Element {
+    if (!tags) return <></>;
     const tagArray = tags.split('/');
 
     return (

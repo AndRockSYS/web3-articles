@@ -6,12 +6,16 @@ import { useMemo, useState } from 'react';
 
 import useElements from '@/hooks/useElements';
 import useArticle from '@/hooks/useArticle';
+import useTags from '@/hooks/useTags';
+
+import { toTags } from '@/components/articleObjects';
 
 import './add-article.css';
 
 export default function AddArticle() {
     const { addElement, addImage, getElements } = useElements();
     const { packArticle } = useArticle();
+    const { freeTags, selectedTags, selectTag } = useTags();
 
     const [coverImage, setCoverImage] = useState('');
 
@@ -41,6 +45,37 @@ export default function AddArticle() {
         const buffer = resizedImage.toBuffer();
         setCoverImage(`data:image/png;base64,${Buffer.from(buffer).toString('base64')}`);
     };
+
+    const openCloseTags = () => {
+        const list = document.querySelector(
+            'main.add-article > div.tags-input > ul'
+        ) as HTMLElement;
+
+        list.style.display = list.style.display.includes('none') ? 'block' : 'none';
+    };
+
+    const articleTags = useMemo(() => toTags(selectedTags.join('/')), [selectedTags]);
+    const unactiveTags = useMemo(
+        () =>
+            freeTags.length ? (
+                <ul>
+                    {freeTags.map((tag) => (
+                        <option
+                            value={tag}
+                            onClick={() => {
+                                selectTag(tag);
+                                openCloseTags();
+                            }}
+                        >
+                            {tag}
+                        </option>
+                    ))}
+                </ul>
+            ) : (
+                <></>
+            ),
+        [freeTags]
+    );
 
     return (
         <main className='add-article'>
@@ -88,6 +123,21 @@ export default function AddArticle() {
                 contentEditable
                 onInput={(event) => cutToLimit(25, event)}
             ></p>
+            <div className='tags-input'>
+                {articleTags}
+                {useMemo(
+                    () =>
+                        selectedTags.length < 5 ? (
+                            <button id='gray-button' onClick={openCloseTags}>
+                                Add Tag
+                            </button>
+                        ) : (
+                            <></>
+                        ),
+                    [selectedTags]
+                )}
+                {unactiveTags}
+            </div>
             <p
                 custom-placeholder='Now a short description'
                 id='description'

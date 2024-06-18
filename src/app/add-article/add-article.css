@@ -45,6 +45,29 @@
         }
     }
 
+    > div.tags-input {
+        position: relative;
+
+        display: flex;
+        column-gap: 0.4rem;
+        align-items: center;
+
+        > ul {
+            position: absolute;
+
+            width: 5.7rem;
+            max-height: 7rem;
+            overflow-y: scroll;
+
+            transform: translateY(5rem);
+            padding: 0.4rem;
+
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            box-shadow: 0 0 10px 0 var(--dark-gray);
+        }
+    }
+
     div.cover-input,
     > div.tool li {
         position: relative;

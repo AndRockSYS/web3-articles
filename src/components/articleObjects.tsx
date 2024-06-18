@@ -8,7 +8,7 @@ export function toAuthorTag(address: string): JSX.Element {
     return (
         <div id='user'>
             <Image src={'/icons/user.svg'} alt='user-icon' height={32} width={32}></Image>
-            <h2>{author}</h2>
+            <h3>{author}</h3>
         </div>
     );
 }
@@ -19,7 +19,7 @@ export function toDateTag(timestamp: number): JSX.Element {
     return (
         <div id='date'>
             <Image src={'/icons/date.svg'} alt='date-icon' height={32} width={32}></Image>
-            <h2>{`${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`}</h2>
+            <h3>{`${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`}</h3>
         </div>
     );
 }

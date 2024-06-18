@@ -16,14 +16,14 @@ export default function ArticlePreview({ article }: Props) {
         <article className='preview'>
             <Image src={article.mainImage} alt='article-image' height={1440} width={2880}></Image>
             <div>
-                <h1>
+                <h2>
                     <span>{article.name}</span>
-                </h1>
+                </h2>
                 <div>
-                    <h2>{toAuthorTag(article.creator)}</h2>
-                    <h2>{toDateTag(article.timestamp)}</h2>
+                    <h4>{toAuthorTag(article.creator)}</h4>
+                    <h4>{toDateTag(article.timestamp)}</h4>
                 </div>
-                <h2>{article.description}</h2>
+                <h4>{article.description}</h4>
                 {toTags(article.tags)}
                 <div>
                     <Link id='blue-button' href=''>

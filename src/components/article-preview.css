@@ -1,6 +1,6 @@
 article.preview {
     max-width: 20rem;
-    max-height: 25rem;
+    max-height: 26rem;
 
     border: 1px solid var(--dark-gray);
     border-radius: 10px;
@@ -19,12 +19,12 @@ article.preview {
         flex-direction: column;
         row-gap: 0.4rem;
 
-        > h1 {
-            height: 3rem;
+        > h2 {
+            height: 4rem;
             overflow: hidden;
         }
 
-        > h2 {
+        > h4 {
             height: 2.5rem;
             overflow: hidden;
         }

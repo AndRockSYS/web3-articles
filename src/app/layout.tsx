@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import AptosProvider from '@/context/AptosProvider';
 
 import './globals.css';
+import '@/styles/buttons.css';
 
 const sans = DM_Sans({ subsets: ['latin'], weight: ['400', '500', '600'] });
 

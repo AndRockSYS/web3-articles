@@ -9,6 +9,8 @@ div#date {
     background-color: var(--light-gray);
     border-radius: 10px;
 
+    cursor: pointer;
+
     > img {
         width: 1.5rem;
         height: 1.5rem;
@@ -19,6 +21,8 @@ div#tags {
     display: flex;
     justify-content: flex-start;
     column-gap: 0.4rem;
+
+    cursor: pointer;
 
     > #tag {
         padding: 0.2rem;

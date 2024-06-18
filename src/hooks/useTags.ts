@@ -17,24 +17,23 @@ const useTags = () => {
 
         const free = [...freeTags];
         free.splice(free.indexOf(tag), 1);
-        console.log(free);
 
         setSelectedTags(selected);
         setFreeTags(free);
     };
 
-    // const deselectTag = (tag: string) => {
-    //     const free = [...freeTags];
-    //     free.push(tag);
+    const deselectTag = (tag: string) => {
+        const free = [...freeTags];
+        free.push(tag);
 
-    //     const selected = [...selectedTags];
-    //     selected.splice(selected.indexOf(tag), 1);
+        const selected = [...selectedTags];
+        selected.splice(selected.indexOf(tag), 1);
 
-    //     setFreeTags(free);
-    //     setSelectedTags(selected);
-    // };
+        setFreeTags(free);
+        setSelectedTags(selected);
+    };
 
-    return { selectedTags, freeTags, selectTag };
+    return { selectedTags, freeTags, selectTag, deselectTag };
 };
 
 export default useTags;

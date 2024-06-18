@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import './article-objects.css';
+import '@/styles/tags.css';
 
 export function toAuthorTag(address: string): JSX.Element {
     const author = address.slice(0, 4) + '...' + address.slice(62, 66);
@@ -24,14 +24,14 @@ export function toDateTag(timestamp: number): JSX.Element {
     );
 }
 
-export function toTags(tags: string): JSX.Element {
+export function toTags(tags: string, func?: (...args: any) => void): JSX.Element {
     if (!tags) return <></>;
     const tagArray = tags.split('/');
 
     return (
         <div id='tags'>
             {tagArray.map((tag) => (
-                <div key={tag} id='tag'>
+                <div key={tag} id='tag' onClick={() => (func ? func(tag) : {})}>
                     {tag}
                 </div>
             ))}

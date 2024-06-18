@@ -1,4 +1,4 @@
-import ArticlePreview from '@/components/ArticlePreview';
+import ArticleCell from '@/components/ArticleCell';
 
 import { Article } from 'typings';
 
@@ -101,7 +101,7 @@ export default function Home() {
         <main className='home'>
             <section>
                 {articles.map((article) => (
-                    <ArticlePreview key={article.timestamp} article={article} />
+                    <ArticleCell key={article.timestamp} article={article} />
                 ))}
             </section>
         </main>

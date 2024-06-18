@@ -1,17 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { toAuthorTag, toDateTag, toTags } from './articleObjects';
+import { toAuthorTag, toDateTag, toTags } from '@/utils/tagsConverter';
 
 import { Article } from 'typings';
 
-import './article-preview.css';
+import './article-cell.css';
 
 interface Props {
     article: Article;
 }
 
-export default function ArticlePreview({ article }: Props) {
+export default function ArticleCell({ article }: Props) {
     return (
         <article className='preview'>
             <Image src={article.coverImage} alt='article-image' height={1440} width={2880}></Image>

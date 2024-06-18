@@ -1,10 +1,32 @@
 .add-article {
     padding: 1rem;
 
+    a {
+        text-decoration: underline;
+    }
+
     p {
         width: 50dvw;
 
         cursor: text;
+    }
+
+    > input.link-input {
+        position: absolute;
+
+        display: block;
+
+        top: 50%;
+
+        width: 15rem;
+
+        padding: 0.4rem;
+
+        border: 1px solid var(--secondary);
+        border-radius: 10px;
+        box-shadow: 0 0 10px 0 var(--dark-gray);
+
+        font-family: inherit;
     }
 
     > div.image-container {
@@ -23,7 +45,8 @@
         }
     }
 
-    > div.cover-input {
+    > div.cover-input,
+    > div.tool li {
         position: relative;
 
         > input {
@@ -49,8 +72,10 @@
     > div.tool > ul {
         width: 9.5rem;
 
+        padding: 0.4rem;
+
         position: absolute;
-        transform: translate(0, -7.9rem);
+        transform: translate(0, -7.2rem);
 
         display: none;
 
@@ -61,8 +86,6 @@
         border-radius: 10px;
 
         > li {
-            padding: 0 0.4rem;
-
             display: flex;
             align-items: center;
             column-gap: 0.4rem;
@@ -89,6 +112,11 @@
         }
     }
 
+    h2,
+    h3 {
+        font-weight: 600;
+    }
+
     p#title {
         font-size: 4rem;
         text-align: center;
@@ -100,8 +128,25 @@
         font-size: 1.5rem;
     }
 
-    p#article {
+    div.article {
         height: 50dvh;
+
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.8rem;
+
+        > img {
+            max-width: 50dvw;
+            height: auto;
+
+            border-radius: 10px;
+
+            transition: all 200ms;
+        }
+
+        > img:hover {
+            box-shadow: 0 0 10px 0 var(--secondary);
+        }
     }
 
     p:empty::before {
@@ -109,7 +154,7 @@
         color: var(--dark-gray);
     }
 
-    p:focus {
+    *:focus {
         outline: none;
     }
 }

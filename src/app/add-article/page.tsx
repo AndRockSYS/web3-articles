@@ -1,13 +1,18 @@
 'use client';
 
 import Image from 'next/image';
-
 import { useMemo, useState } from 'react';
+
+import useElements from '@/hooks/useElements';
 
 import './add-article.css';
 
 export default function AddArticle() {
+    const { addElement, addImage, getElements } = useElements();
+
     const [coverImage, setCoverImage] = useState('');
+
+    const [isLinkOpened, setIsLinkOpened] = useState(false);
 
     const cutToLimit = (limit: number, event: React.FormEvent<HTMLParagraphElement>) => {
         const value = event.currentTarget.textContent;
@@ -16,7 +21,6 @@ export default function AddArticle() {
 
     const elements = [
         { value: 'image', name: 'Image' },
-        { value: 'video', name: 'Video' },
         { value: 'h2', name: 'Heading 2' },
         { value: 'h3', name: 'Heading 3' },
         { value: 'link', name: 'Link' },
@@ -81,13 +85,58 @@ export default function AddArticle() {
                 contentEditable
                 onInput={(event) => cutToLimit(50, event)}
             ></p>
+            {useMemo(
+                () =>
+                    isLinkOpened ? (
+                        <input
+                            className='link-input'
+                            type='text'
+                            placeholder='Paste the link'
+                            onChange={(event) => {
+                                const elements = getElements();
+                                elements.forEach((item) => {
+                                    if (
+                                        item.tagName == 'A' &&
+                                        (item as HTMLAnchorElement).href == ''
+                                    )
+                                        (item as HTMLAnchorElement).href = event.target.value;
+                                });
+                                setIsLinkOpened(false);
+                            }}
+                        />
+                    ) : (
+                        <></>
+                    ),
+                [isLinkOpened]
+            )}
+
             <div className='article'>
-                <p custom-placeholder='What do you want to write?' id='article' contentEditable></p>
+                <p id='article' contentEditable custom-placeholder='What do you want to do'></p>
             </div>
             <div className='tool'>
                 <ul>
                     {elements.map((element) => (
-                        <li value={element.value}>
+                        <li
+                            key={element.name}
+                            value={element.value}
+                            onClick={() => {
+                                if (element.value == 'link') setIsLinkOpened(true);
+                                openCloseElements();
+                                if (element.value != 'image') addElement(element.value);
+                            }}
+                        >
+                            {element.value == 'image' ? (
+                                <input
+                                    type='file'
+                                    accept='image/png, image/jpeg'
+                                    onChange={(event) => {
+                                        if (!event.target.files) return;
+                                        addImage(event.target.files[0]);
+                                    }}
+                                />
+                            ) : (
+                                <></>
+                            )}
                             <Image
                                 src={`/icons/elements/${
                                     element.value.includes('h') ? 'heading' : element.value

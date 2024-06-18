@@ -1,3 +1,5 @@
+import { Image } from 'image-js';
+
 const useElements = () => {
     const getElements = (): NodeListOf<HTMLElement> => {
         return document.querySelectorAll('.add-article div.article > *');
@@ -8,7 +10,6 @@ const useElements = () => {
         if (key == 'Backspace' || key == 'Delete') {
             const elements = getElements();
             elements.forEach((item, index) => {
-                console.log(item.tagName);
                 if (!item.textContent?.length && item.id != 'article' && item.tagName != 'IMG') {
                     item.remove();
                     elements[index - 1].focus();
@@ -19,8 +20,12 @@ const useElements = () => {
 
     const addImage = async (image: File) => {
         const arrayBuffer = await image.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
-        const src = `data:image/png;base64,${buffer.toString('base64')}`;
+
+        const bfr = await Image.load(Buffer.from(arrayBuffer));
+        const resizedImage = bfr.resize({ height: 600, preserveAspectRatio: true });
+        const buffer = resizedImage.toBuffer();
+
+        const src = `data:image/png;base64,${Buffer.from(buffer).toString('base64')}`;
 
         const img = document.createElement('img');
         img.onclick = () => img.remove();

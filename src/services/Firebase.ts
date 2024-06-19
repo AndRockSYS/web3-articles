@@ -1,4 +1,4 @@
-import { FirebaseApp, initializeApp } from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { child, get, getDatabase, ref, remove, update } from 'firebase/database';
 
@@ -7,17 +7,15 @@ import firebaseConfig from '@/config/firebase.json';
 import { Article } from 'typings';
 
 export default class KeyStore {
-    private app: FirebaseApp = initializeApp(firebaseConfig);
-    private db = getDatabase(this.app);
+    private db = getDatabase(initializeApp(firebaseConfig));
 
     async authenticate() {
-        const auth = getAuth();
+        const auth = getAuth(initializeApp(firebaseConfig));
         await signInWithEmailAndPassword(auth, 'marketmycoin@gmail.com', 'Bitcoin@$2024$').catch(
             (error) => console.log(error)
         );
 
-        this.app = auth.app;
-        this.db = getDatabase(this.app);
+        this.db = getDatabase(auth.app);
     }
 
     async getAllArticles(): Promise<{ [key: string]: Article }> {

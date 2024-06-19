@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 
 import '@/styles/tags.css';
@@ -31,7 +33,13 @@ export function toTags(tags: string, func?: (...args: any) => void): JSX.Element
     return (
         <div id='tags'>
             {tagArray.map((tag) => (
-                <div key={tag} id='tag' onClick={() => (func ? func(tag) : {})}>
+                <div
+                    key={tag}
+                    id='tag'
+                    onClick={() => {
+                        if (func) func(tag);
+                    }}
+                >
                     {tag}
                 </div>
             ))}

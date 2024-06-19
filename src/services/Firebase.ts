@@ -19,22 +19,22 @@ export default class KeyStore {
     }
 
     async getAllArticles(): Promise<{ [key: string]: Article }> {
-        const snapshot = await get(child(ref(this.db), ''));
+        const snapshot = await get(ref(this.db));
         return snapshot.val();
     }
 
     async getArtilce(articleAddress: string): Promise<Article | undefined> {
-        const snapshot = await get(child(ref(this.db), `${articleAddress}`));
+        const snapshot = await get(child(ref(this.db), `/${articleAddress}`));
         return snapshot.exists() ? JSON.parse(snapshot.val()) : undefined;
     }
 
     async addArticle(articleAddress: string, article: Article) {
         const updates: any = {};
-        updates[`${articleAddress}`] = article;
+        updates[`/${articleAddress}`] = article;
         await update(ref(this.db), updates);
     }
 
     async removeArticle(articleAddress: string) {
-        await remove(ref(this.db, `${articleAddress}`));
+        await remove(ref(this.db, `/${articleAddress}`));
     }
 }

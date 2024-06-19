@@ -1,5 +1,5 @@
 import { FirebaseApp, initializeApp } from 'firebase/app';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { child, get, getDatabase, ref, remove, update } from 'firebase/database';
 
 import firebaseConfig from '@/config/firebase.json';
@@ -10,16 +10,19 @@ export default class KeyStore {
     private app: FirebaseApp = initializeApp(firebaseConfig);
     private db = getDatabase(this.app);
 
-    async initialize() {
+    async authenticate() {
         const auth = getAuth();
-        await createUserWithEmailAndPassword(
-            auth,
-            'tbp.world.aptos@gmail.com',
-            'tbp-world-aptos'
-        ).catch((error) => console.log(error));
+        await signInWithEmailAndPassword(auth, 'marketmycoin@gmail.com', 'Bitcoin@$2024$').catch(
+            (error) => console.log(error)
+        );
 
         this.app = auth.app;
         this.db = getDatabase(this.app);
+    }
+
+    async getAllArticles(): Promise<{ [key: string]: Article }> {
+        const snapshot = await get(child(ref(this.db), ''));
+        return snapshot.val();
     }
 
     async getArtilce(articleAddress: string): Promise<Article | undefined> {

@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "@aptos-labs/wallet-adapter-react": "^3.2.0",
+        "firebase": "^10.12.2",
         "image-js": "^0.35.5",
         "next": "14.2.4",
         "petra-plugin-wallet-adapter": "^0.4.5",

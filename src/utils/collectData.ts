@@ -19,6 +19,7 @@ export const packArticle = (selectedTags: string[]): Article | undefined => {
 
     return {
         creator: '0x0',
+        tokenId: '0x1',
         timestamp: Date.now(),
 
         coverImage: coverImage.src,

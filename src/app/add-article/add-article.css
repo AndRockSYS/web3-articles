@@ -89,7 +89,8 @@
     }
 
     div.article {
-        height: 35dvh;
+        min-height: 35dvh;
+        margin-bottom: 5rem;
 
         display: flex;
         flex-direction: column;

@@ -41,16 +41,21 @@ span {
     font-weight: 600;
 }
 
+html {
+    overflow-y: scroll;
+    height: 100%;
+}
+
 html,
 body {
-    max-width: 100dvw;
-    overflow-x: hidden;
+    max-width: 100%;
 }
 
 body {
     background-color: var(--white);
 
     > main {
+        height: 100%;
         margin-top: 4.5rem;
 
         display: flex;

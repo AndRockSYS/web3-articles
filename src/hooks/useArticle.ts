@@ -31,7 +31,6 @@ const useArticle = () => {
 
         if (value == 'img' && imageFile) {
             newElement = await addImage(imageFile);
-            addElement('p');
         } else {
             if (value == 'a') newElement.textContent = 'Text with Link';
 
@@ -41,6 +40,10 @@ const useArticle = () => {
 
         const parent = document.querySelector('.add-article div.article');
         parent?.appendChild(newElement);
+
+        if (value == 'img') {
+            addElement('p');
+        }
 
         newElement.focus();
     };

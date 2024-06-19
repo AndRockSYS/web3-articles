@@ -38,6 +38,7 @@ export default function AddArticle() {
                 <ul>
                     {freeTags.map((tag) => (
                         <option
+                            key={tag}
                             value={tag}
                             onClick={() => {
                                 selectTag(tag);
@@ -56,7 +57,7 @@ export default function AddArticle() {
 
     return (
         <main className='add-article'>
-            <button id='blue-button' onClick={packArticle}>
+            <button id='blue-button' onClick={() => packArticle(selectedTags)}>
                 <Image src={'/icons/send.svg'} alt='send' width={32} height={32}></Image>
                 Publish
             </button>

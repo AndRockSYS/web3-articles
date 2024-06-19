@@ -11,9 +11,9 @@ interface Body {
 
 const firebase = new Firebase();
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
     try {
-        const body: Body = await req.json();
+        const body = await req.json();
 
         await firebase.authenticate();
 

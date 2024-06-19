@@ -1,6 +1,7 @@
 {
     "apiKey": "AIzaSyDleG9gHlKrQXvxasBDhvmuRCPx_MPC0wc",
     "authDomain": "letsdyor.firebaseapp.com",
+    "databaseURL": "https://letsdyor-default-rtdb.europe-west1.firebasedatabase.app",
     "projectId": "letsdyor",
     "storageBucket": "letsdyor.appspot.com",
     "messagingSenderId": "229580885413",

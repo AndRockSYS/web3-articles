@@ -9,11 +9,12 @@ interface Body {
     article?: Article;
 }
 
+const firebase = new Firebase();
+
 export async function GET(req: NextRequest) {
     try {
         const body: Body = await req.json();
 
-        const firebase = new Firebase();
         await firebase.authenticate();
 
         const data = body.articleAddress
@@ -36,7 +37,6 @@ export async function PUT(req: NextRequest) {
         if (!body.article) throw new Error('No article data was provided');
         if (!body.articleAddress) throw new Error('No article address was provided');
 
-        const firebase = new Firebase();
         await firebase.authenticate();
 
         await firebase.addArticle(body.articleAddress, body.article);
@@ -53,7 +53,6 @@ export async function DELETE(req: NextRequest) {
 
         if (!body.articleAddress) throw new Error('No article address was provided');
 
-        const firebase = new Firebase();
         await firebase.authenticate();
         await firebase.removeArticle(body.articleAddress);
 

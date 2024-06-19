@@ -9,7 +9,7 @@ const nextConfig = {
         ],
     },
     env: {
-        APP_URL: 'http://localhost:3000',
+        NEXT_PUBLIC_APP_URL: 'http://localhost:3000',
     },
 };
 

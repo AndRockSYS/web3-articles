@@ -5,7 +5,7 @@ export const config = {
 };
 
 export function middleware(req: NextRequest) {
-    if (!req.nextUrl.origin.includes(process.env.APP_URL as string))
+    if (!req.nextUrl.origin.includes(process.env.NEXT_PUBLIC_APP_URL as string))
         return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
 
     return NextResponse.next();

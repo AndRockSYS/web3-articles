@@ -1,0 +1,22 @@
+[package]
+name = "letsdyor"
+version = "1.0.0"
+authors = []
+
+[addresses]
+owner = "5d49fe998ce0f9969d4ccbf67e7496c2a5d5f3826296d56673246f43c817b56a"
+letsdyor = "44763fe660126743c124942513d7ada74eb1fb7a1df882ba9ed3e73526cfba2a"
+
+[dev-addresses]
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "mainnet"
+subdir = "aptos-move/framework/aptos-framework"
+
+[dependencies.AptosTokenObjects]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "mainnet"
+subdir = "aptos-move/framework/aptos-token-objects"
+
+[dev-dependencies]

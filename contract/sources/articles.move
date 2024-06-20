@@ -12,11 +12,19 @@ module letsdyor::articles {
 	use aptos_token_objects::royalty::{Royalty};
 	use aptos_token_objects::collection::{Collection, Self};
 
+	use aptos_framework::event;
+
 	const ENotWebsite: u64 = 0;
 
 	struct State has key, store {
 		collection_object: Object<Collection>,
 		signerCap: SignerCapability
+	}
+
+	#[event]
+	struct ArticleAdded has drop, store {
+		creator: address,
+		token_id: address
 	}
 
 	fun init_module(creator: &signer) {
@@ -57,9 +65,14 @@ module letsdyor::articles {
 			collection_uri
 		);
 
-		let token_address = token::create_token_address(&signer::address_of(creator), &collection_name, &name);
+		let token_id = token::create_token_address(&signer::address_of(creator), &collection_name, &name);
 
-		object::transfer_raw(creator, token_address, signer::address_of(sender));
+		object::transfer_raw(creator, token_id, signer::address_of(sender));
+
+		event::emit(ArticleAdded {
+			creator: signer::address_of(sender),
+			token_id
+		});
 	}
 
 	fun check_source(signature_bytes: vector<u8>, key_bytes: vector<u8>, message: vector<u8>): bool {

@@ -1,56 +1,36 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+
+import { sendArticleRequest, sendImageRequest } from '@/utils/firebase';
+
 import { Article } from 'typings';
 
 const useFirebase = () => {
     const [articles, setArticles] = useState<{ [key: string]: Article }>({});
 
-    const url = `${process.env.NEXT_PUBLIC_APP_URL as string}/api/firebase`;
-
     useEffect(() => {
-        fetch(url, {
-            method: 'POST',
-            body: JSON.stringify({ articleAddress: undefined }),
-        }).then(async (response) => {
-            const json = await response.json();
-            setArticles(json.data);
-        });
+        sendArticleRequest('POST').then((data) => setArticles(data));
     }, []);
 
     const getArticle = async (articleAddress: string): Promise<Article> => {
-        const response = await fetch(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                articleAddress,
-            }),
-        });
+        return await sendArticleRequest('POST', articleAddress);
+    };
 
-        const json = await response.json();
-
-        return json.data;
+    const uploadImage = async (articleAddress: string, image: string): Promise<string> => {
+        return await sendImageRequest('PUT', articleAddress, image);
     };
 
     const addArticle = async (articleAddress: string, article: Article) => {
-        await fetch(url, {
-            method: 'PUT',
-            body: JSON.stringify({
-                articleAddress,
-                article,
-            }),
-        });
+        return await sendArticleRequest('PUT', articleAddress, article);
     };
 
     const deleteArticle = async (articleAddress: string) => {
-        await fetch(url, {
-            method: 'DELETE',
-            body: JSON.stringify({
-                articleAddress,
-            }),
-        });
+        await sendImageRequest('DELETE', articleAddress);
+        await sendArticleRequest('DELETE', articleAddress);
     };
 
-    return { articles, addArticle, getArticle, deleteArticle };
+    return { articles, addArticle, uploadImage, getArticle, deleteArticle };
 };
 
 export default useFirebase;

@@ -1,0 +1,8 @@
+img.banner {
+    margin-top: 1rem;
+
+    width: 80dvw;
+    height: 15dvw;
+
+    border: 1px solid var(--primary);
+}

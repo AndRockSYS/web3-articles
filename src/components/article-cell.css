@@ -1,8 +1,6 @@
 article.preview {
-    padding: 0 1rem;
-
     max-width: 20rem;
-    max-height: 27rem;
+    max-height: 25rem;
 
     display: flex;
     flex-direction: column;
@@ -12,8 +10,12 @@ article.preview {
     overflow: hidden;
     cursor: pointer;
 
+    > * {
+        max-width: inherit;
+    }
+
     > img {
-        max-width: 18rem;
+        max-width: 100%;
         height: auto;
 
         border-radius: 10px;
@@ -42,7 +44,7 @@ article.preview {
     }
 
     @media screen and (max-width: 900px) {
-        max-width: 80dvw;
+        max-width: 90dvw;
         max-height: 30rem;
     }
 }

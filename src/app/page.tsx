@@ -1,24 +1,34 @@
 'use client';
 
-import { useMemo } from 'react';
-
 import ArticleCell from '@/components/ArticleCell';
+import Banner from '@/components/Banner';
 
 import useFirebase from '@/hooks/useFirebase';
+import useTags from '@/hooks/useTags';
 
 import './homepage.css';
 
 export default function Home() {
     const { articles } = useFirebase();
-
-    const cells = useMemo(() => {
-        if (!articles) return <></>;
-        return articles.map((article) => <ArticleCell key={article.tokenId} article={article} />);
-    }, [articles]);
+    const { tags } = useTags();
 
     return (
         <main className='home'>
-            <section>{cells}</section>
+            <Banner />
+            {tags.map((tag) => (
+                <section key={tag}>
+                    <h1>{tag}</h1>
+                    <div>
+                        {articles.map((article) =>
+                            article.tag == tag ? (
+                                <ArticleCell key={article.tokenId} article={article} />
+                            ) : (
+                                <></>
+                            )
+                        )}
+                    </div>
+                </section>
+            ))}
         </main>
     );
 }

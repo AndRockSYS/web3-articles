@@ -14,6 +14,8 @@ div#date {
     > img {
         width: 1.5rem;
         height: 1.5rem;
+
+        filter: invert();
     }
 }
 
@@ -26,8 +28,6 @@ div#tags {
 
     > #tag {
         padding: 0.2rem;
-
-        color: var(--secondary);
 
         background-color: var(--light-gray);
         border-radius: 10px;

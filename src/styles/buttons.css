@@ -13,24 +13,25 @@
     align-items: center;
     column-gap: 0.4rem;
 
+    color: var(--white);
+    @media (prefers-color-scheme: dark) {
+        color: var(--black);
+    }
+
     > img {
         width: 1.5rem;
         height: 1.5rem;
+
+        filter: invert();
     }
 }
 
 #blue-button {
     background-color: var(--secondary);
-
-    color: var(--white);
-
-    > img {
-        filter: invert();
-    }
 }
 
 #blue-button:hover {
-    box-shadow: 0 0 10px 5px var(--primary);
+    box-shadow: 0 0 10px -2px var(--primary);
 }
 
 #gray-button {

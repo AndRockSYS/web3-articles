@@ -30,7 +30,7 @@ const useFirebase = () => {
         await sendArticleRequest('DELETE', articleAddress);
     };
 
-    return { articles, setArticles, addArticle, uploadImage, getArticle, deleteArticle };
+    return { articles, addArticle, uploadImage, getArticle, deleteArticle };
 };
 
 export default useFirebase;

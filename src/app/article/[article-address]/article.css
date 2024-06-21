@@ -18,35 +18,61 @@ main.loading {
 main.article {
     padding: 1rem;
 
-    > img {
+    > * {
+        width: var(--width);
         max-width: var(--width);
-        height: auto;
+    }
 
+    > h1 > span {
+        font-size: 2.5rem;
+    }
+
+    > div.additional {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        column-gap: 0.5rem;
+    }
+
+    > img {
+        height: auto;
         border-radius: 10px;
-        box-shadow: 0 0 10px 0 var(--dark-gray);
     }
 
     > div.author,
     > div#tags {
-        width: var(--width);
-
         display: flex;
         column-gap: 0.4rem;
     }
 
     > article {
-        width: var(--width);
-
         display: flex;
         flex-direction: column;
-        row-gap: 0.4rem;
+        row-gap: 0.5rem;
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 500;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        a {
+            color: var(--primary);
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
 
         > img {
             width: 100%;
             height: auto;
 
             border-radius: 10px;
-            box-shadow: 0 0 10px 0 var(--dark-gray);
         }
     }
 }

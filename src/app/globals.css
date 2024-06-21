@@ -1,20 +1,16 @@
 :root {
-    --white: #f3f6f7;
-    --light-gray: #7ab8c2;
-    --dark-gray: #3d7c85;
-    --black: #0a0c0c;
-
-    --primary: #63979e;
-    --secondary: #79b9c2;
-
     @media (prefers-color-scheme: dark) {
-        --white: #080b0c;
-        --light-gray: #7ab8c2;
-        --dark-gray: #3d7c85;
-        --black: #f4f6f6;
+        --background: #232328;
 
-        --primary: #62969d;
-        --secondary: #3d7c85;
+        --light-gray: #44444a;
+        --dark-gray: #36363c;
+
+        --text: #f3f3f7;
+        --text-secondary: #d5d5d8;
+        --text-tetriary: #acacaf;
+
+        --primary: #0098ea;
+        --secondary: #07acff;
     }
 }
 
@@ -26,21 +22,17 @@
     font-size: 16px;
     font-size: clamp(12px, 2.5dvw, 16px);
     font-weight: 400;
-
-    color: var(--white);
-    @media (prefers-color-scheme: dark) {
-        color: var(--black);
-    }
+    color: var(--text);
 }
 
 h1,
 h1 > * {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
 }
 
 h2,
 h2 > * {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 h3,
@@ -63,7 +55,7 @@ body {
 }
 
 body {
-    background-color: var(--white);
+    background-color: var(--background);
 
     > main {
         height: 100%;

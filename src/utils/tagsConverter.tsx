@@ -10,7 +10,7 @@ export function toAuthorTag(address: string): JSX.Element {
     return (
         <div id='user'>
             <Image src={'/icons/user.svg'} alt='user-icon' height={32} width={32}></Image>
-            <h3>{author}</h3>
+            <h4>{author}</h4>
         </div>
     );
 }
@@ -18,31 +18,26 @@ export function toAuthorTag(address: string): JSX.Element {
 export function toDateTag(timestamp: number): JSX.Element {
     const date = new Date(timestamp);
 
+    const day = date.getDay();
+    const month = date.toLocaleString('en', { month: 'short' });
+
     return (
         <div id='date'>
             <Image src={'/icons/date.svg'} alt='date-icon' height={32} width={32}></Image>
-            <h3>{`${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`}</h3>
+            <h4>{`${day} ${month}`}</h4>
         </div>
     );
 }
 
-export function toTags(tags: string, func?: (...args: any) => void): JSX.Element {
-    if (!tags) return <></>;
-    const tagArray = tags.split('/');
-
+export function toTag(tag: string, func?: (...args: any) => void): JSX.Element {
     return (
-        <div id='tags'>
-            {tagArray.map((tag) => (
-                <div
-                    key={tag}
-                    id='tag'
-                    onClick={() => {
-                        if (func) func(tag);
-                    }}
-                >
-                    {tag}
-                </div>
-            ))}
-        </div>
+        <h4
+            id='tag'
+            onClick={() => {
+                if (func) func('');
+            }}
+        >
+            {tag}
+        </h4>
     );
 }

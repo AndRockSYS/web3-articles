@@ -5,7 +5,7 @@ export interface Article {
 
     coverImage: string;
     title: string;
-    tags: string;
+    tag: string;
     description: string;
 
     article: string;

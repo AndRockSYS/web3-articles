@@ -26,7 +26,7 @@ export default function Navbar() {
     return (
         <nav>
             <Link className='empty' href={'/'}>
-                <h1>Mirror Copy</h1>
+                <h1>Letsdyor</h1>
             </Link>
             <div>
                 {useMemo(() => {

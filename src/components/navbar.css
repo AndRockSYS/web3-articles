@@ -13,7 +13,7 @@ nav {
 
     border-bottom: 1px solid var(--dark-gray);
 
-    background-color: var(--white);
+    background-color: var(--background);
 
     > div {
         display: flex;

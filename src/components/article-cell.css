@@ -1,42 +1,54 @@
 article.preview {
+    padding: 0 1rem;
+
     max-width: 20rem;
     max-height: 27rem;
 
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: 0.4rem;
 
-    img {
-        max-width: inherit;
+    overflow: hidden;
+    cursor: pointer;
+
+    > img {
+        max-width: 18rem;
         height: auto;
 
         border-radius: 10px;
     }
 
     > div {
-        padding-top: 0.5rem;
-
         display: flex;
-        flex-direction: column;
-        row-gap: 0.4rem;
+        align-items: center;
+        column-gap: 0.5rem;
+    }
 
-        > h2 {
-            max-height: 4rem;
-            overflow: hidden;
-        }
+    > h2 {
+        max-height: 4rem;
+        overflow: hidden;
 
-        > h4 {
-            max-height: 2.5rem;
-            overflow: hidden;
+        > span {
+            transition: all 200ms;
         }
+    }
 
-        > div {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    > h4 {
+        max-height: 2.5rem;
+        overflow: hidden;
+
+        color: var(--text-secondary);
     }
 
     @media screen and (max-width: 900px) {
         max-width: 80dvw;
         max-height: 30rem;
+    }
+}
+
+article.preview:hover {
+    h2 > span {
+        color: var(--secondary);
     }
 }

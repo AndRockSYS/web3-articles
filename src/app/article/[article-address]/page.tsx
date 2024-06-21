@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
 import useFirebase from '@/hooks/useFirebase';
-import { toAuthorTag, toDateTag, toTags } from '@/utils/tagsConverter';
+import { toAuthorTag, toDateTag, toTag } from '@/utils/tagsConverter';
 
 import { Article } from 'typings';
 
@@ -30,13 +30,15 @@ export default function ArticlePage() {
 
     return (
         <main className='article'>
-            <Image src={article?.coverImage} alt='cover-image' height={360} width={640}></Image>
-            <h1>{article.title}</h1>
-            {toTags(article.tags)}
-            <div className='author'>
-                {toAuthorTag(article.creator)}
-                {toDateTag(article.timestamp)}
+            <div className='additional'>
+                {toDateTag(article.timestamp)} {toTag(article.tag)}
             </div>
+
+            <h1>
+                <span>{article.title}</span>
+            </h1>
+            <div className='author'>{toAuthorTag(article.creator)}</div>
+            <Image src={article?.coverImage} alt='cover-image' height={360} width={640}></Image>
             <article dangerouslySetInnerHTML={{ __html: article.article }} />
         </main>
     );

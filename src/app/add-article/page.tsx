@@ -9,7 +9,7 @@ import useAptos from '@/hooks/useAptos';
 import EditTools from './EditTools';
 
 import { args, packArticle, updateImages } from '@/utils/dataManager';
-import { toTags } from '@/utils/tagsConverter';
+import { toTag } from '@/utils/tagsConverter';
 import imageCompressor from '@/utils/imageCompressor';
 
 import './add-article.css';
@@ -19,7 +19,7 @@ import useFirebase from '@/hooks/useFirebase';
 export default function AddArticle() {
     const { account } = useWallet();
 
-    const { freeTags, selectedTags, selectTag, deselectTag } = useTags();
+    const { tags, selectedTag, setSelectedTag } = useTags();
     const { sendArticle } = useAptos();
     const { addArticle, uploadImage } = useFirebase();
 
@@ -38,28 +38,21 @@ export default function AddArticle() {
         list.style.display = list.style.display.includes('none') ? 'block' : 'none';
     };
 
-    const articleTags = useMemo(() => toTags(selectedTags.join('/'), deselectTag), [selectedTags]);
-    const unactiveTags = useMemo(
-        () =>
-            freeTags.length ? (
-                <ul>
-                    {freeTags.map((tag) => (
-                        <option
-                            key={tag}
-                            value={tag}
-                            onClick={() => {
-                                selectTag(tag);
-                                openCloseTags();
-                            }}
-                        >
-                            {tag}
-                        </option>
-                    ))}
-                </ul>
-            ) : (
-                <></>
-            ),
-        [freeTags]
+    const unactiveTags = (
+        <ul>
+            {tags.map((tag) => (
+                <option
+                    key={tag}
+                    value={tag}
+                    onClick={() => {
+                        setSelectedTag(tag);
+                        openCloseTags();
+                    }}
+                >
+                    {tag}
+                </option>
+            ))}
+        </ul>
     );
 
     const postNewArticle = async () => {
@@ -68,7 +61,7 @@ export default function AddArticle() {
         //const tokenId = await sendArticle(title, description);
         const tokenId = '0x91111';
         await updateImages(tokenId, uploadImage);
-        const article = packArticle(account.address, tokenId, selectedTags);
+        const article = packArticle(account.address, tokenId, selectedTag);
         if (!article) return;
         await addArticle(tokenId, article);
         alert('Article was successfully uploaded');
@@ -122,17 +115,16 @@ export default function AddArticle() {
                 onInput={(event) => cutToLimit(25, event)}
             ></p>
             <div className='tags-input'>
-                {articleTags}
                 {useMemo(
                     () =>
-                        selectedTags.length < 5 ? (
+                        !selectedTag ? (
                             <button id='gray-button' onClick={openCloseTags}>
                                 Add Tag
                             </button>
                         ) : (
-                            <></>
+                            toTag(selectedTag, setSelectedTag)
                         ),
-                    [selectedTags]
+                    [selectedTag]
                 )}
                 {unactiveTags}
             </div>

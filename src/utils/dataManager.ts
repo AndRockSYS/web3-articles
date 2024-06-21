@@ -24,7 +24,7 @@ export const updateImages = async (
 export const packArticle = (
     creator: string,
     tokenId: string,
-    selectedTags: string[]
+    selectedTag: string
 ): Article | undefined => {
     const elements = document.querySelectorAll(
         '.add-article > div.article > *'
@@ -54,7 +54,7 @@ export const packArticle = (
 
         coverImage: coverImage.src,
         title: title.textContent,
-        tags: selectedTags.join('/'),
+        tag: selectedTag,
         description: description.textContent,
 
         article: articleElements.join(''),

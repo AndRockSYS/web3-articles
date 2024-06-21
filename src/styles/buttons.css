@@ -13,11 +13,6 @@
     align-items: center;
     column-gap: 0.4rem;
 
-    color: var(--white);
-    @media (prefers-color-scheme: dark) {
-        color: var(--black);
-    }
-
     > img {
         width: 1.5rem;
         height: 1.5rem;
@@ -27,19 +22,17 @@
 }
 
 #blue-button {
-    background-color: var(--secondary);
+    background-color: var(--primary);
 }
 
 #blue-button:hover {
-    box-shadow: 0 0 10px -2px var(--primary);
+    box-shadow: 0 0 10px -2px var(--secondary);
 }
 
 #gray-button {
-    background-color: var(--light-gray);
-
-    box-shadow: 0 0 10px var(--dark-gray);
+    background-color: var(--dark-gray);
 }
 
 #gray-button:hover {
-    box-shadow: 0 0 10px 2px var(--dark-gray);
+    box-shadow: 0 0 10px var(--light-gray);
 }

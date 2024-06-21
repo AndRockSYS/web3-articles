@@ -1,17 +1,15 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import ArticleCell from '@/components/ArticleCell';
 
 import useFirebase from '@/hooks/useFirebase';
 
-import { sortByTag } from '@/utils/sorting';
-
 import './homepage.css';
 
 export default function Home() {
-    const { articles, setArticles } = useFirebase();
+    const { articles } = useFirebase();
 
     const cells = useMemo(() => {
         if (!articles) return <></>;
@@ -20,19 +18,6 @@ export default function Home() {
 
     return (
         <main className='home'>
-            <div className='sorting'>
-                {['DeFi', 'AI', 'GameFi', 'RWA', 'Other'].map((tag) => (
-                    <button
-                        key={tag}
-                        id='blue-button'
-                        onClick={() => {
-                            setArticles(sortByTag([...articles], tag));
-                        }}
-                    >
-                        {tag}
-                    </button>
-                ))}
-            </div>
             <section>{cells}</section>
         </main>
     );

@@ -23,6 +23,7 @@ export default function Home() {
             <div className='sorting'>
                 {['DeFi', 'AI', 'GameFi', 'RWA', 'Other'].map((tag) => (
                     <button
+                        key={tag}
                         id='blue-button'
                         onClick={() => {
                             setArticles(sortByTag([...articles], tag));

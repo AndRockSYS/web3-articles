@@ -4,17 +4,24 @@ import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
 import useTags from '@/hooks/useTags';
+import useAptos from '@/hooks/useAptos';
 
 import EditTools from './EditTools';
 
-import { packArticle } from '@/utils/collectData';
+import { args, packArticle, updateImages } from '@/utils/dataManager';
 import { toTags } from '@/utils/tagsConverter';
 import imageCompressor from '@/utils/imageCompressor';
 
 import './add-article.css';
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
+import useFirebase from '@/hooks/useFirebase';
 
 export default function AddArticle() {
+    const { account } = useWallet();
+
     const { freeTags, selectedTags, selectTag, deselectTag } = useTags();
+    const { sendArticle } = useAptos();
+    const { addArticle, uploadImage } = useFirebase();
 
     const [coverImage, setCoverImage] = useState('');
 
@@ -55,9 +62,21 @@ export default function AddArticle() {
         [freeTags]
     );
 
+    const postNewArticle = async () => {
+        if (!account) return;
+        // const [title, description] = args();
+        //const tokenId = await sendArticle(title, description);
+        const tokenId = '0x91111';
+        await updateImages(tokenId, uploadImage);
+        const article = packArticle(account.address, tokenId, selectedTags);
+        if (!article) return;
+        await addArticle(tokenId, article);
+        alert('Article was successfully uploaded');
+    };
+
     return (
         <main className='add-article'>
-            <button id='blue-button' onClick={() => packArticle(selectedTags)}>
+            <button id='blue-button' onClick={() => postNewArticle()}>
                 <Image src={'/icons/send.svg'} alt='send' width={32} height={32}></Image>
                 Publish
             </button>

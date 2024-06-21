@@ -1,8 +1,9 @@
 img.banner {
     margin-top: 1rem;
 
-    width: 80dvw;
+    width: inherit;
     height: 15dvw;
 
     border: 1px solid var(--primary);
+    border-radius: 10px;
 }

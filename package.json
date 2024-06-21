@@ -9,7 +9,9 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@aptos-labs/ts-sdk": "^1.18.1",
         "@aptos-labs/wallet-adapter-react": "^3.2.0",
+        "crypto-js": "^4.2.0",
         "firebase": "^10.12.2",
         "image-js": "^0.35.5",
         "next": "14.2.4",
@@ -18,6 +20,7 @@
         "react-dom": "^18"
     },
     "devDependencies": {
+        "@types/crypto-js": "^4.2.2",
         "@types/node": "^20",
         "@types/react": "^18",
         "@types/react-dom": "^18",

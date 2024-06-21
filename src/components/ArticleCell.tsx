@@ -18,22 +18,23 @@ export default function ArticleCell({ article }: Props) {
         <article className='preview'>
             <Image src={article.coverImage} alt='article-image' height={1440} width={2880}></Image>
             <div>
-                <h2>
-                    <span>{article.title}</span>
-                </h2>
                 <div>
                     <h4>{toAuthorTag(article.creator)}</h4>
                     <h4>{toDateTag(article.timestamp)}</h4>
                 </div>
+                <h2>
+                    <span>{article.title}</span>
+                </h2>
+
                 <h4>{article.description}</h4>
                 {toTags(article.tags)}
                 <div>
-                    <Link id='blue-button' href=''>
+                    <Link id='blue-button' href={`/article/${article.tokenId}`}>
                         Read
                     </Link>
                     <Link
                         id='blue-button'
-                        href='https://explorer.aptoslabs.com/?network=mainnet'
+                        href={`https://explorer.aptoslabs.com/object/${article.tokenId}?network=mainnet`}
                         target='_blank'
                     >
                         Open on Explorer

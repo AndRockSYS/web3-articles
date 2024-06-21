@@ -43,7 +43,7 @@ module letsdyor::articles {
 		});
 	}
 
-	fun add_article(
+	entry fun add_article(
 		sender: &signer, 
 		name: String, description: String,
 		signature: vector<u8>, public_key: vector<u8>, message: vector<u8>
@@ -54,7 +54,6 @@ module letsdyor::articles {
 		let creator: &signer = &account::create_signer_with_capability(&state.signerCap);
 
 		let collection_name = collection::name<Collection>(*&state.collection_object);
-		let collection_uri = collection::uri<Collection>(*&state.collection_object);
 
 		token::create(
 			creator, 
@@ -62,7 +61,7 @@ module letsdyor::articles {
 			description, 
 			name, 
 			option::none<Royalty>(), 
-			collection_uri
+			utf8(b"None")
 		);
 
 		let token_id = token::create_token_address(&signer::address_of(creator), &collection_name, &name);

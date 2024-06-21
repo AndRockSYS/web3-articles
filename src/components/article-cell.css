@@ -12,7 +12,7 @@ article.preview {
     }
 
     > div {
-        padding: 0.5rem;
+        padding-top: 0.5rem;
 
         display: flex;
         flex-direction: column;

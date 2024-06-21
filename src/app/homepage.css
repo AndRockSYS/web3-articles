@@ -1,4 +1,11 @@
 main.home {
+    > div.sorting {
+        padding-top: 1rem;
+
+        display: flex;
+        column-gap: 0.4rem;
+    }
+
     > section {
         width: 100%;
 

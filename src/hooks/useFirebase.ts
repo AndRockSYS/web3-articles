@@ -7,10 +7,10 @@ import { sendArticleRequest, sendImageRequest } from '@/utils/firebase';
 import { Article } from 'typings';
 
 const useFirebase = () => {
-    const [articles, setArticles] = useState<{ [key: string]: Article }>({});
+    const [articles, setArticles] = useState<Article[]>([]);
 
     useEffect(() => {
-        sendArticleRequest('POST').then((data) => setArticles(data));
+        sendArticleRequest('POST').then((data) => setArticles(Object.values(data)));
     }, []);
 
     const getArticle = async (articleAddress: string): Promise<Article> => {
@@ -30,7 +30,7 @@ const useFirebase = () => {
         await sendArticleRequest('DELETE', articleAddress);
     };
 
-    return { articles, addArticle, uploadImage, getArticle, deleteArticle };
+    return { articles, setArticles, addArticle, uploadImage, getArticle, deleteArticle };
 };
 
 export default useFirebase;

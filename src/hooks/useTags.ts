@@ -2,14 +2,7 @@ import { useState } from 'react';
 
 const useTags = () => {
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
-    const [freeTags, setFreeTags] = useState<string[]>([
-        'DeFi',
-        'AI',
-        'Other',
-        'GameFi',
-        'RWA',
-        'DAO',
-    ]);
+    const [freeTags, setFreeTags] = useState<string[]>(['DeFi', 'AI', 'GameFi', 'RWA', 'Other']);
 
     const selectTag = (tag: string) => {
         const selected = [...selectedTags];

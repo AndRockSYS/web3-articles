@@ -57,14 +57,17 @@ export default function AddArticle() {
 
     const postNewArticle = async () => {
         if (!account) return;
-        // const [title, description] = args();
-        //const tokenId = await sendArticle(title, description);
-        const tokenId = '0x91111';
+        const [title, description] = args();
+
+        if (!title || !description) {
+            alert('Fill the article');
+            return;
+        }
+        const tokenId = await sendArticle(title, description);
         await updateImages(tokenId, uploadImage);
         const article = packArticle(account.address, tokenId, selectedTag);
         if (!article) return;
         await addArticle(tokenId, article);
-        alert('Article was successfully uploaded');
     };
 
     return (

@@ -1,9 +1,47 @@
-img.banner {
+@keyframes bannerMove {
+    50% {
+        transform: translate(80dvw);
+    }
+}
+
+div.banner {
+    position: relative;
+
     margin-top: 1rem;
 
-    width: inherit;
-    height: 15dvw;
+    width: 80dvw;
+    height: 12rem;
+
+    display: flex;
 
     border: 1px solid var(--primary);
     border-radius: 10px;
+
+    overflow: hidden;
+
+    > img {
+        height: auto;
+        width: 80dvw;
+    }
+
+    > button {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0.5rem;
+
+        > input {
+            position: absolute;
+            cursor: pointer;
+            left: 0;
+
+            opacity: 0;
+
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    > button#blue-button {
+        right: 6rem;
+    }
 }

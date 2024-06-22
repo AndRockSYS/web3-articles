@@ -22,6 +22,28 @@ async function authenticate(): Promise<FirebaseStorage> {
     return getStorage(auth.app);
 }
 
+export async function POST(req: NextRequest) {
+    try {
+        const storage = await authenticate();
+
+        const reference = ref(storage, `banner`);
+        const list = await listAll(reference);
+
+        const urls: string[] = [];
+
+        for (let item of list.items) {
+            urls.push(await getDownloadURL(item));
+        }
+
+        return NextResponse.json({ link: urls });
+    } catch (error) {
+        return NextResponse.json(
+            { error, link: undefined },
+            { status: 500, statusText: 'Internal Error' }
+        );
+    }
+}
+
 export async function PUT(req: NextRequest) {
     try {
         const body = await req.json();

@@ -13,6 +13,10 @@ const useFirebase = () => {
         sendArticleRequest('POST').then((data) => setArticles(Object.values(data)));
     }, []);
 
+    const getBanners = async (): Promise<string[]> => {
+        return await sendImageRequest('POST', 'banner');
+    };
+
     const getArticle = async (articleAddress: string): Promise<Article> => {
         return await sendArticleRequest('POST', articleAddress);
     };
@@ -30,7 +34,7 @@ const useFirebase = () => {
         await sendArticleRequest('DELETE', articleAddress);
     };
 
-    return { articles, addArticle, uploadImage, getArticle, deleteArticle };
+    return { articles, addArticle, uploadImage, getArticle, deleteArticle, getBanners };
 };
 
 export default useFirebase;

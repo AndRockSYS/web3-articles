@@ -15,13 +15,13 @@ export default function Home() {
     return (
         <main className='home'>
             <Banner />
-            {tags.map((tag) => (
-                <section key={tag}>
+            {tags.map((tag, index) => (
+                <section key={index}>
                     <h1>{tag}</h1>
                     <div>
-                        {articles.map((article) =>
+                        {articles.map((article, index) =>
                             article.tag == tag ? (
-                                <ArticleCell key={article.tokenId} article={article} />
+                                <ArticleCell key={index} article={article} />
                             ) : (
                                 <></>
                             )

@@ -45,6 +45,10 @@ main.article {
         column-gap: 0.4rem;
     }
 
+    > div.author {
+        justify-content: space-between;
+    }
+
     > article {
         display: flex;
         flex-direction: column;

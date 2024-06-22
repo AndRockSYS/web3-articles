@@ -3,19 +3,25 @@ import { InputTransactionData, useWallet } from '@aptos-labs/wallet-adapter-reac
 
 import CryptoJS from 'crypto-js';
 
-const [publicK, privateK] = [
-    '0x4d031dfec57633364efc929e652b438ad100e89319f89cb6754aa347e6e38e5c',
-    '0x04db08719c4351d684a13f70a0a973e8f014d5e2b13f0c09d698a56e563b648c',
-];
+const privateK = '0x04db08719c4351d684a13f70a0a973e8f014d5e2b13f0c09d698a56e563b648c';
+const publicK = '4d031dfec57633364efc929e652b438ad100e89319f89cb6754aa347e6e38e5c';
 
 const useAptos = () => {
     const { account, signAndSubmitTransaction } = useWallet();
 
-    const signSignature = (message: string): [string, string, string] => {
+    const signSignature = (message: string): [string, string] => {
         const privateKey = new Ed25519PrivateKey(privateK);
         const hashedMessage = CryptoJS.SHA256(message + Date.now()).toString(CryptoJS.enc.Hex);
         const signature = privateKey.sign(hashedMessage).toString();
-        return [signature, publicK, hashedMessage];
+        return [signature, hashedMessage];
+    };
+
+    const toVectorU8 = (signature: string): number[] => {
+        const result: number[] = [];
+        for (let i = 0; i < signature.length; i += 2) {
+            result.push(Number(`0x${signature.slice(i, i + 2)}`));
+        }
+        return result;
     };
 
     const sendArticle = async (name: string, description: string): Promise<string | undefined> => {
@@ -24,10 +30,9 @@ const useAptos = () => {
             return;
         }
 
-        const [signature, publicKey, hashedMessage] = signSignature(name + description);
+        toVectorU8('4d031dfec57633364efc929e652b438ad100e89319f89cb6754aa347e6e38e5c');
 
-        const utf8Encode = new TextEncoder();
-        utf8Encode.encode('abc');
+        const [signature, hashedMessage] = signSignature(name + description);
 
         const tx: InputTransactionData = {
             data: {
@@ -37,9 +42,9 @@ const useAptos = () => {
                 functionArguments: [
                     name,
                     description,
-                    utf8Encode.encode(signature),
-                    utf8Encode.encode(publicKey),
-                    utf8Encode.encode(hashedMessage),
+                    toVectorU8(signature.slice(2)),
+                    toVectorU8(publicK),
+                    toVectorU8(hashedMessage),
                 ],
             },
         };

@@ -1,9 +1,3 @@
-@keyframes bannerMove {
-    50% {
-        transform: translate(80dvw);
-    }
-}
-
 div.banner {
     position: relative;
 
@@ -23,6 +17,9 @@ div.banner {
     > img {
         width: auto;
         height: auto;
+
+        transition: all 500ms;
+        opacity: 0;
     }
 
     > button {

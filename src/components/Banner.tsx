@@ -24,7 +24,14 @@ export default function Banner() {
     useEffect(() => {
         if (banners.length < 2) return;
 
-        new Promise((resolve) => setTimeout(resolve, 7000)).then(() => {
+        const images = document.querySelectorAll('.banner > img') as NodeListOf<HTMLImageElement>;
+        if (!images) return;
+
+        images.forEach((img) => {
+            img.style.opacity = '1';
+        });
+
+        new Promise((resolve) => setTimeout(resolve, 6000)).then(() => {
             const shuffled: string[] = [];
 
             for (let i = 1; i < banners.length; i++) {
@@ -33,7 +40,13 @@ export default function Banner() {
 
             shuffled.push(banners[0]);
 
-            setBanners(shuffled);
+            images.forEach((img) => {
+                img.style.opacity = '0';
+            });
+
+            new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
+                setBanners(shuffled);
+            });
         });
     }, [banners]);
 
@@ -46,7 +59,7 @@ export default function Banner() {
         <div className='banner'>
             {useMemo(
                 () => (
-                    <Image src={banners[0]} alt='banner' height={150} width={1000} />
+                    <Image src={banners[0]} alt='banner' height={150} width={1000} priority />
                 ),
                 [banners]
             )}

@@ -24,12 +24,7 @@ const useAptos = () => {
         return result;
     };
 
-    const sendArticle = async (name: string, description: string): Promise<string | undefined> => {
-        if (!account) {
-            alert('Connect Wallet!');
-            return;
-        }
-
+    const sendArticle = async (name: string, description: string): Promise<string> => {
         toVectorU8('4d031dfec57633364efc929e652b438ad100e89319f89cb6754aa347e6e38e5c');
 
         const [signature, hashedMessage] = signSignature(name + description);
@@ -50,7 +45,7 @@ const useAptos = () => {
         };
 
         const data = await signAndSubmitTransaction(tx);
-        console.log(data);
+        return data.output.events[1].data.token_id;
     };
 
     return { sendArticle };

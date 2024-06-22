@@ -30,18 +30,25 @@ export default function Navbar() {
             </Link>
             <div>
                 {useMemo(() => {
-                    if (!account || path.includes('add-article')) return <></>;
+                    if (!account || path.includes('add-article') || path.includes('apply'))
+                        return <></>;
 
                     return (
-                        <Link id='blue-button' href='/add-article'>
-                            <Image
-                                src='/icons/create-article.svg'
-                                alt='wallet'
-                                height={32}
-                                width={32}
-                            />
-                            Create
-                        </Link>
+                        <>
+                            <Link id='blue-button' href='/add-article'>
+                                <Image
+                                    src='/icons/create-article.svg'
+                                    alt='wallet'
+                                    height={32}
+                                    width={32}
+                                />
+                                Create
+                            </Link>
+                            <Link id='blue-button' href='/apply'>
+                                <Image src='/icons/mail.svg' alt='mail' height={32} width={32} />
+                                Apply
+                            </Link>
+                        </>
                     );
                 }, [account, path])}
                 <button

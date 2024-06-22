@@ -15,6 +15,7 @@
         "firebase": "^10.12.2",
         "image-js": "^0.35.5",
         "next": "14.2.4",
+        "nodemailer": "^6.9.14",
         "petra-plugin-wallet-adapter": "^0.4.5",
         "react": "^18",
         "react-dom": "^18"
@@ -22,6 +23,7 @@
     "devDependencies": {
         "@types/crypto-js": "^4.2.2",
         "@types/node": "^20",
+        "@types/nodemailer": "^6.4.15",
         "@types/react": "^18",
         "@types/react-dom": "^18",
         "eslint": "^8",

@@ -1,0 +1,40 @@
+main.apply {
+    height: calc(100dvh - 4.5rem);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1.5rem;
+
+    > div {
+        position: relative;
+
+        > label {
+            position: absolute;
+
+            font-size: 0.8rem;
+
+            transform: translateY(-1rem);
+        }
+    }
+
+    input,
+    textarea {
+        width: 50dvw;
+
+        padding: 0.2rem;
+
+        background-color: var(--background);
+        border: 1px solid var(--dark-gray);
+        border-radius: 10px;
+
+        cursor: pointer;
+    }
+
+    input:focus,
+    textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+    }
+}

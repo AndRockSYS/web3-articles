@@ -16,9 +16,10 @@ export const updateImages = async (
     const images = document.querySelectorAll(
         '.add-article > .image-container > img, .add-article > .article img'
     ) as NodeListOf<HTMLImageElement>;
-    images.forEach(async (image) => {
+
+    for (const image of images) {
         image.src = await uploadImage(tokenId, image.src);
-    });
+    }
 };
 
 export const packArticle = (

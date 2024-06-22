@@ -1,4 +1,10 @@
 :root {
+    --background: #fff;
+
+    --text: #04060b;
+    --text-secondary: #191f2f;
+    --text-tetriary: #728a96;
+
     @media (prefers-color-scheme: dark) {
         --background: #232328;
 
@@ -8,12 +14,15 @@
         --text: #f3f3f7;
         --text-secondary: #d5d5d8;
         --text-tetriary: #acacaf;
-
-        --primary: #0098ea;
-        --secondary: #07acff;
-
-        --red: #dc143c;
     }
+
+    --light-gray: #44444a;
+    --dark-gray: #36363c;
+
+    --primary: #0098ea;
+    --secondary: #07acff;
+
+    --red: #dc143c;
 }
 
 * {

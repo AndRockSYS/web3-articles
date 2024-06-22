@@ -45,7 +45,13 @@ const useAptos = () => {
         };
 
         const data = await signAndSubmitTransaction(tx);
-        return data.output.events[1].data.token_id;
+        for (let event of data.output.events) {
+            if (event.type.includes(process.env.NEXT_PUBLIC_MODULE_ADDRESS as string)) {
+                return event.data.token_id;
+            }
+        }
+
+        return '0x0';
     };
 
     return { sendArticle };

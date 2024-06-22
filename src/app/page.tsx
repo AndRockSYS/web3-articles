@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import ArticleCell from '@/components/ArticleCell';
 import Banner from '@/components/Banner';
 
@@ -14,10 +16,18 @@ export default function Home() {
 
     return (
         <main className='home'>
+            <div className='tag-list'>
+                {tags.map((tag) => (
+                    <Link href={`#${tag}`} id='gray-button' key={tag}>
+                        {tag}
+                    </Link>
+                ))}
+            </div>
+
             <Banner />
             {tags.map((tag, index) => (
                 <section key={index}>
-                    <h1>{tag}</h1>
+                    <h1 id={tag}>{tag}</h1>
                     <div>
                         {articles.map((article, index) =>
                             article.tag == tag ? (

@@ -1,4 +1,12 @@
 main.home {
+    scroll-behavior: smooth;
+
+    > div.tag-list {
+        display: flex;
+        column-gap: 0.5rem;
+        padding-top: 1rem;
+    }
+
     > section {
         width: 80dvw;
 

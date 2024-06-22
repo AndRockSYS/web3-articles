@@ -46,16 +46,16 @@ module letsdyor::articles {
 	entry fun add_article(
 		sender: &signer, 
 		name: String, description: String,
-		signature: vector<u8>, public_key: vector<u8>, message: vector<u8>
+		signature: vector<u8>, owner_key: vector<u8>, message: vector<u8>
 	) acquires State {
-		assert!(check_source(signature, public_key, message), ENotWebsite);
+		assert!(check_source(signature, owner_key, message), ENotWebsite);
 
 		let state: &State = borrow_global<State>(@letsdyor);
 		let creator: &signer = &account::create_signer_with_capability(&state.signerCap);
 
 		let collection_name = collection::name<Collection>(*&state.collection_object);
 
-		token::create(
+		let contructor_ref = token::create(
 			creator, 
 			collection_name, 
 			description, 
@@ -64,7 +64,7 @@ module letsdyor::articles {
 			utf8(b"None")
 		);
 
-		let token_id = token::create_token_address(&signer::address_of(creator), &collection_name, &name);
+		let token_id = object::address_from_constructor_ref(&contructor_ref);
 
 		object::transfer_raw(creator, token_id, signer::address_of(sender));
 
@@ -74,9 +74,9 @@ module letsdyor::articles {
 		});
 	}
 
-	fun check_source(signature_bytes: vector<u8>, key_bytes: vector<u8>, message: vector<u8>): bool {
+	fun check_source(signature_bytes: vector<u8>, owner_key: vector<u8>, message: vector<u8>): bool {
 		let signature = ed25519::new_signature_from_bytes(signature_bytes);
-		let public_key = ed25519::new_unvalidated_public_key_from_bytes(key_bytes);
+		let public_key = ed25519::new_unvalidated_public_key_from_bytes(owner_key);
 
 		ed25519::signature_verify_strict(&signature, &public_key, message)
 	}

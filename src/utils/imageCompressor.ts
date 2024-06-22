@@ -16,3 +16,12 @@ export default async function imageCompressor(imageInput: File) {
 
     return `data:image/png;base64,${Buffer.from(croppedImage.toBuffer()).toString('base64')}`;
 }
+
+export async function bannerCompressor(imageInput: File) {
+    const arrayBuffer = await imageInput.arrayBuffer();
+
+    const bfr = await Image.load(Buffer.from(arrayBuffer));
+    const resizedImage = bfr.resize({ width: 1700, height: 200, preserveAspectRatio: true });
+
+    return `data:image/png;base64,${Buffer.from(resizedImage.toBuffer()).toString('base64')}`;
+}

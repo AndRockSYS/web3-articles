@@ -13,6 +13,7 @@ div.banner {
     height: 12rem;
 
     display: flex;
+    justify-content: center;
 
     border: 1px solid var(--primary);
     border-radius: 10px;
@@ -20,8 +21,8 @@ div.banner {
     overflow: hidden;
 
     > img {
+        width: auto;
         height: auto;
-        width: 80dvw;
     }
 
     > button {

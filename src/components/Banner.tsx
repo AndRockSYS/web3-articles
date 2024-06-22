@@ -7,6 +7,8 @@ import { useWallet } from '@aptos-labs/wallet-adapter-react';
 
 import useFirebase from '@/hooks/useFirebase';
 
+import { bannerCompressor } from '@/utils/imageCompressor';
+
 import './banner.css';
 
 export default function Banner() {
@@ -57,11 +59,8 @@ export default function Banner() {
                             onChange={async (event) => {
                                 const file = event.target.files?.[0];
                                 if (!file) return;
-                                const image = await file.arrayBuffer();
-                                await uploadImage(
-                                    'banner',
-                                    `data:image/png;base64,${Buffer.from(image).toString('base64')}`
-                                );
+                                const image = await bannerCompressor(file);
+                                await uploadImage('banner', image);
                             }}
                         />
                         Add

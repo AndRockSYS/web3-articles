@@ -37,11 +37,6 @@ export const packArticle = (
     const title = document.querySelector('.add-article > p#title') as HTMLElement;
     const description = document.querySelector('.add-article > p#description') as HTMLElement;
 
-    if (!title.textContent || !description.textContent || !coverImage) {
-        alert('Fill the article first');
-        return;
-    }
-
     const articleElements: string[] = [];
     elements.forEach((item) => {
         item.contentEditable = 'false';
@@ -54,9 +49,9 @@ export const packArticle = (
         timestamp: Date.now(),
 
         coverImage: coverImage.src,
-        title: title.textContent,
+        title: title.textContent ? title.textContent : '',
         tag: selectedTag,
-        description: description.textContent,
+        description: description.textContent ? description.textContent : '',
 
         article: articleElements.join(''),
     };

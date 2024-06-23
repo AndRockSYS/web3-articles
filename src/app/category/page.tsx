@@ -21,7 +21,11 @@ export default function Category() {
             <div>
                 {useMemo(() => {
                     return articles.map((article) =>
-                        article.tag == tag ? <ArticleCell article={article} /> : <></>
+                        article.tag == tag ? (
+                            <ArticleCell key={article.tokenId} article={article} />
+                        ) : (
+                            <></>
+                        )
                     );
                 }, [articles])}
             </div>

@@ -53,6 +53,8 @@ export default function AddArticle() {
 
             const tokenId = await sendArticle(article.title, article.description);
 
+            article.tokenId = tokenId;
+
             await updateImages(tokenId, uploadImage);
             await addArticle(tokenId, article);
 

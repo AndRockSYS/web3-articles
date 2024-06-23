@@ -48,7 +48,7 @@ export default function Home() {
                                 if (article.tag == tag) amount++;
 
                                 return article.tag == tag ? (
-                                    <ArticleCell key={index} article={article} />
+                                    <ArticleCell key={article.timestamp} article={article} />
                                 ) : (
                                     <></>
                                 );

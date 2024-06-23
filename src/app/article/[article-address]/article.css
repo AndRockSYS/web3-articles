@@ -2,7 +2,7 @@
     --width: calc(50dvw - 2rem);
 
     @media screen and (max-width: 900px) {
-        --width: calc(100dvw - 2rem);
+        --width: calc(100dvw - 3rem);
     }
 }
 
@@ -18,12 +18,25 @@ main.loading {
 main.article {
     padding: 1rem;
 
-    > * {
-        width: var(--width);
-        max-width: var(--width);
+    p,
+    ul,
+    ol,
+    div,
+    h1,
+    h2,
+    h3,
+    li {
+        margin: 0 !important;
+        padding: 0 !important;
 
-        font-family: inherit;
-        color: var(--text);
+        width: var(--width) !important;
+        max-width: var(--width) !important;
+
+        font-size: inherit !important;
+        line-height: inherit !important;
+        font-family: inherit !important;
+        word-break: inherit !important;
+        color: var(--text) !important;
     }
 
     > h1 > span {
@@ -38,6 +51,8 @@ main.article {
     }
 
     > img {
+        width: var(--width);
+        max-width: var(--width);
         height: auto;
         border-radius: 10px;
     }
@@ -68,11 +83,11 @@ main.article {
         }
 
         a {
-            color: var(--primary);
+            color: var(--primary) !important;
         }
 
         a:hover {
-            text-decoration: underline;
+            text-decoration: underline !important;
         }
 
         > img {

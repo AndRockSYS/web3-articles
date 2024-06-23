@@ -22,6 +22,7 @@ export const collectData = (creator: string): Article | undefined => {
     ) as NodeListOf<HTMLElement>;
     elements.forEach((item) => {
         item.contentEditable = 'false';
+        item.removeAttribute('style');
         articleElements.push(item.outerHTML);
     });
 

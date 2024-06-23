@@ -7,11 +7,6 @@ div.banner {
     display: flex;
     justify-content: center;
 
-    border: 1px solid var(--primary);
-    border-radius: 10px;
-
-    overflow: hidden;
-
     > div.image-container {
         position: relative;
 
@@ -21,11 +16,16 @@ div.banner {
         display: flex;
         align-items: center;
 
+        border: 1px solid var(--primary);
+        border-radius: 10px;
+
         > img.banner {
             width: 100%;
-            height: auto;
+            height: 100%;
 
             transition: all 500ms;
+
+            border-radius: 10px;
         }
 
         > :first-child,
@@ -36,17 +36,16 @@ div.banner {
             position: absolute;
             cursor: pointer;
 
-            filter: invert();
+            filter: invert(78%) sepia(0%) saturate(8%) hue-rotate(79deg) brightness(91%)
+                contrast(85%);
         }
 
         > :first-child {
-            left: 0;
-            margin-left: 1rem;
+            left: -2.2rem;
         }
 
         > :last-child {
-            right: 0;
-            margin-right: 1rem;
+            right: -2.2rem;
         }
     }
 

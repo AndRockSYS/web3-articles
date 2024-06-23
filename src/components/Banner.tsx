@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 
@@ -16,50 +16,49 @@ export default function Banner() {
     const { uploadImage, getBanners, deleteArticle } = useFirebase();
 
     const [banners, setBanners] = useState<string[]>([]);
+    const [slide, setSlide] = useState(0);
+
+    const imageRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
-        getBanners().then((links) => {
-            setBanners(links);
-            if (links.length > 1 && !isPlaying) {
-                isPlaying = true;
-                loop(links);
-            }
-        });
+        getBanners().then((links) => setBanners(links));
     }, []);
 
-    let isPlaying = false;
-    const loop = async (links: string[]) => {
-        await new Promise((resolve) => setTimeout(resolve, 6000));
-        await shuffle(links, true);
-        loop(links);
+    const autoLoop = async (curr: number) => {
+        if (banners.length < 2 || !imageRef.current) return;
+
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+
+        imageRef.current.style.opacity = '0';
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        if (curr == banners.length - 1) curr = 0;
+        else curr++;
+
+        imageRef.current.src = banners[curr];
+
+        imageRef.current.style.opacity = '1';
+
+        autoLoop(curr);
     };
 
-    const shuffle = async (links: string[], isNext: boolean) => {
-        if (links.length < 2) return;
-
+    const shuffle = async (isNext: boolean) => {
         const image = document.querySelector('.banner img.banner') as HTMLImageElement;
-
-        const shuffled: string[] = [];
-
-        if (isNext) {
-            for (let i = 1; i < links.length; i++) {
-                shuffled.push(links[i]);
-            }
-
-            shuffled.push(links[0]);
-        } else {
-            shuffled.push(links[links.length - 1]);
-
-            for (let i = 0; i < links.length - 1; i++) {
-                shuffled.push(links[i]);
-            }
-        }
-
         image.style.opacity = '0';
 
         await new Promise((resolve) => setTimeout(resolve, 500));
 
-        setBanners(shuffled);
+        if (banners.length < 2) return;
+
+        if (isNext) {
+            if (slide == banners.length - 1) setSlide(0);
+            else setSlide(slide + 1);
+        } else {
+            if (slide == 0) setSlide(banners.length - 1);
+            else setSlide(slide - 1);
+        }
+
         image.style.opacity = '1';
     };
 
@@ -79,11 +78,12 @@ export default function Banner() {
                                 alt='left'
                                 height={32}
                                 width={32}
-                                onClick={() => shuffle(banners, false)}
+                                onClick={() => shuffle(false)}
                             />
                             <Image
                                 className='banner'
-                                src={banners[0]}
+                                ref={imageRef}
+                                src={banners[slide]}
                                 alt='banner'
                                 height={150}
                                 width={1000}
@@ -94,13 +94,13 @@ export default function Banner() {
                                 alt='left'
                                 height={32}
                                 width={32}
-                                onClick={() => shuffle(banners, true)}
+                                onClick={() => shuffle(true)}
                             />
                         </div>
                     ) : (
                         <></>
                     ),
-                [banners]
+                [banners, slide]
             )}
             {isOwner ? (
                 <>

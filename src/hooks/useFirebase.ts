@@ -10,14 +10,18 @@ import { ArticleContext } from '@/context/ArticleProvider';
 const useFirebase = () => {
     const { articles, setArticles } = useContext(ArticleContext);
 
+    let isLoaded = false;
     useEffect(() => {
-        if (!articles.length)
+        if (!articles.length && !isLoaded) {
+            isLoaded = true;
+
             sendArticleRequest('POST').then((data) => {
                 const sorted = Object.values<Article>(data).sort(
                     (a, b) => b.timestamp - a.timestamp
                 );
                 setArticles(sorted);
             });
+        }
     }, []);
 
     const getBanners = async (): Promise<string[]> => {

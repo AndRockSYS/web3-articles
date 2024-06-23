@@ -1,7 +1,7 @@
 div.banner {
     position: relative;
 
-    width: 80dvw;
+    width: 80%;
     height: calc(80dvw / 5);
 
     display: flex;
@@ -12,12 +12,39 @@ div.banner {
 
     overflow: hidden;
 
-    > img {
-        width: auto;
-        height: auto;
+    > div.image-container {
+        position: relative;
 
-        transition: all 500ms;
-        opacity: 0;
+        display: flex;
+        align-items: center;
+
+        > img.banner {
+            width: 100%;
+            height: auto;
+
+            transition: all 500ms;
+        }
+
+        > :first-child,
+        > :last-child {
+            width: 2rem;
+            height: 2rem;
+
+            position: absolute;
+            cursor: pointer;
+
+            filter: invert();
+        }
+
+        > :first-child {
+            left: 0;
+            margin-left: 1rem;
+        }
+
+        > :last-child {
+            right: 0;
+            margin-right: 1rem;
+        }
     }
 
     > button {

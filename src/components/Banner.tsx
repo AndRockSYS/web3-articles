@@ -21,33 +21,43 @@ export default function Banner() {
         getBanners().then((links) => setBanners(links));
     }, []);
 
-    useEffect(() => {
+    const shuffle = (isNext: boolean) => {
         if (banners.length < 2) return;
 
-        const images = document.querySelectorAll('.banner > img') as NodeListOf<HTMLImageElement>;
-        if (!images) return;
+        const image = document.querySelector('.banner img.banner') as HTMLImageElement;
+        if (!image) return;
 
-        images.forEach((img) => {
-            img.style.opacity = '1';
-        });
+        const shuffled: string[] = [];
 
-        new Promise((resolve) => setTimeout(resolve, 6000)).then(() => {
-            const shuffled: string[] = [];
-
+        if (isNext) {
             for (let i = 1; i < banners.length; i++) {
                 shuffled.push(banners[i]);
             }
 
             shuffled.push(banners[0]);
+        } else {
+            shuffled.push(banners[banners.length - 1]);
 
-            images.forEach((img) => {
-                img.style.opacity = '0';
-            });
+            for (let i = 0; i < banners.length - 1; i++) {
+                shuffled.push(banners[i]);
+            }
+        }
 
-            new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
-                setBanners(shuffled);
-            });
+        image.style.opacity = '0';
+
+        new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
+            setBanners(shuffled);
+
+            image.style.opacity = '1';
         });
+    };
+
+    useEffect(() => {
+        // if (banners.length < 2) return;
+        // const image = document.querySelector('.banner img.banner') as HTMLImageElement;
+        // if (!image) return;
+        // image.style.opacity = '1';
+        // new Promise((resolve) => setTimeout(resolve, 6000)).then(() => shuffle(true));
     }, [banners]);
 
     const isOwner = useMemo(
@@ -60,7 +70,30 @@ export default function Banner() {
             {useMemo(
                 () =>
                     banners.length ? (
-                        <Image src={banners[0]} alt='banner' height={150} width={1000} priority />
+                        <div className='image-container'>
+                            <Image
+                                src={'/icons/arrow-left.svg'}
+                                alt='left'
+                                height={32}
+                                width={32}
+                                onClick={() => shuffle(false)}
+                            />
+                            <Image
+                                className='banner'
+                                src={banners[0]}
+                                alt='banner'
+                                height={150}
+                                width={1000}
+                                priority
+                            />
+                            <Image
+                                src={'/icons/arrow-right.svg'}
+                                alt='left'
+                                height={32}
+                                width={32}
+                                onClick={() => shuffle(true)}
+                            />
+                        </div>
                     ) : (
                         <></>
                     ),

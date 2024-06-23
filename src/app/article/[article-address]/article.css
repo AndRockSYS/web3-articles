@@ -22,7 +22,6 @@ main.article {
     ul,
     ol,
     div,
-    h1,
     h2,
     h3,
     li {
@@ -33,14 +32,17 @@ main.article {
         max-width: var(--width) !important;
 
         font-size: inherit !important;
+        font-weight: inherit !important;
         line-height: inherit !important;
         font-family: inherit !important;
         word-break: inherit !important;
         color: var(--text) !important;
     }
 
-    > h1 > span {
-        font-size: 2.5rem;
+    > h1,
+    > h1 > * {
+        width: var(--width);
+        font-size: 2.5rem !important;
     }
 
     > div.additional {
@@ -72,14 +74,16 @@ main.article {
         flex-direction: column;
         row-gap: 0.5rem;
 
-        h2 {
-            font-size: 1.75rem;
-            font-weight: 500;
+        h2,
+        h2 > * {
+            font-size: 1.75rem !important;
+            font-weight: 500 !important;
         }
 
-        h3 {
-            font-size: 1.5rem;
-            font-weight: 500;
+        h3,
+        h3 > * {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
         }
 
         a {

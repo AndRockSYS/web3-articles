@@ -18,47 +18,50 @@ export default function Banner() {
     const [banners, setBanners] = useState<string[]>([]);
 
     useEffect(() => {
-        getBanners().then((links) => setBanners(links));
+        getBanners().then((links) => {
+            setBanners(links);
+            if (links.length > 1 && !isPlaying) {
+                isPlaying = true;
+                loop(links);
+            }
+        });
     }, []);
 
-    const shuffle = (isNext: boolean) => {
-        if (banners.length < 2) return;
+    let isPlaying = false;
+    const loop = async (links: string[]) => {
+        await new Promise((resolve) => setTimeout(resolve, 6000));
+        await shuffle(links, true);
+        loop(links);
+    };
+
+    const shuffle = async (links: string[], isNext: boolean) => {
+        if (links.length < 2) return;
 
         const image = document.querySelector('.banner img.banner') as HTMLImageElement;
-        if (!image) return;
 
         const shuffled: string[] = [];
 
         if (isNext) {
-            for (let i = 1; i < banners.length; i++) {
-                shuffled.push(banners[i]);
+            for (let i = 1; i < links.length; i++) {
+                shuffled.push(links[i]);
             }
 
-            shuffled.push(banners[0]);
+            shuffled.push(links[0]);
         } else {
-            shuffled.push(banners[banners.length - 1]);
+            shuffled.push(links[links.length - 1]);
 
-            for (let i = 0; i < banners.length - 1; i++) {
-                shuffled.push(banners[i]);
+            for (let i = 0; i < links.length - 1; i++) {
+                shuffled.push(links[i]);
             }
         }
 
         image.style.opacity = '0';
 
-        new Promise((resolve) => setTimeout(resolve, 500)).then(() => {
-            setBanners(shuffled);
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
-            image.style.opacity = '1';
-        });
+        setBanners(shuffled);
+        image.style.opacity = '1';
     };
-
-    useEffect(() => {
-        // if (banners.length < 2) return;
-        // const image = document.querySelector('.banner img.banner') as HTMLImageElement;
-        // if (!image) return;
-        // image.style.opacity = '1';
-        // new Promise((resolve) => setTimeout(resolve, 6000)).then(() => shuffle(true));
-    }, [banners]);
 
     const isOwner = useMemo(
         () => account?.address.includes(process.env.NEXT_PUBLIC_OWNER as string),
@@ -76,7 +79,7 @@ export default function Banner() {
                                 alt='left'
                                 height={32}
                                 width={32}
-                                onClick={() => shuffle(false)}
+                                onClick={() => shuffle(banners, false)}
                             />
                             <Image
                                 className='banner'
@@ -91,7 +94,7 @@ export default function Banner() {
                                 alt='left'
                                 height={32}
                                 width={32}
-                                onClick={() => shuffle(true)}
+                                onClick={() => shuffle(banners, true)}
                             />
                         </div>
                     ) : (

@@ -1,7 +1,4 @@
 article.preview {
-    max-width: 20rem;
-    max-height: 25rem;
-
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -15,7 +12,7 @@ article.preview {
     }
 
     > img {
-        max-width: 100%;
+        width: 100%;
         height: auto;
 
         border-radius: 10px;
@@ -41,11 +38,6 @@ article.preview {
         overflow: hidden;
 
         color: var(--text-secondary);
-    }
-
-    @media screen and (max-width: 900px) {
-        max-width: 90dvw;
-        max-height: 30rem;
     }
 }
 

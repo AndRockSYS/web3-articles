@@ -33,7 +33,7 @@ main.home {
             width: 100%;
 
             display: grid;
-            grid-template-columns: repeat(auto-fill, 20rem);
+            grid-template-columns: repeat(3, calc(100% / 3));
             justify-content: center;
 
             gap: 1rem;

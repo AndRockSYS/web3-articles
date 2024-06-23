@@ -1,13 +1,11 @@
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
-import useArticle from '@/hooks/useArticle';
+import { addElement, getElements } from '@/utils/articleElements';
 
 import './edit-tools.css';
 
 export default function EditTools() {
-    const { addElement, getElements } = useArticle();
-
     const [linkInputOpened, setLinkInputOpened] = useState(false);
 
     const openCloseTools = () => {

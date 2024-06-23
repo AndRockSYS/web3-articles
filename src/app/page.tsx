@@ -18,27 +18,45 @@ export default function Home() {
         <main className='home'>
             <div className='tag-list'>
                 {tags.map((tag) => (
-                    <Link href={`#${tag}`} id='gray-button' key={tag}>
+                    <Link
+                        href={{ pathname: '/category', query: { category: tag } }}
+                        id='gray-button'
+                        key={tag}
+                    >
                         {tag}
                     </Link>
                 ))}
             </div>
 
             <Banner />
-            {tags.map((tag, index) => (
-                <section key={index}>
-                    <h1 id={tag}>{tag}</h1>
-                    <div>
-                        {articles.map((article, index) =>
-                            article.tag == tag ? (
-                                <ArticleCell key={index} article={article} />
-                            ) : (
-                                <></>
-                            )
-                        )}
-                    </div>
-                </section>
-            ))}
+            {tags.map((tag, index) => {
+                let amount = 0;
+                return (
+                    <section key={index}>
+                        <div className='name'>
+                            <h1 id={tag}>{tag}</h1>
+                            <Link
+                                href={{ pathname: '/category', query: { category: tag } }}
+                                id='blue-button'
+                            >
+                                See All
+                            </Link>
+                        </div>
+                        <div className='articles'>
+                            {articles.map((article, index) => {
+                                if (amount == 3) return <></>;
+                                if (article.tag == tag) amount++;
+
+                                return article.tag == tag ? (
+                                    <ArticleCell key={index} article={article} />
+                                ) : (
+                                    <></>
+                                );
+                            })}
+                        </div>
+                    </section>
+                );
+            })}
         </main>
     );
 }

@@ -7,7 +7,7 @@ const privateK = '0x04db08719c4351d684a13f70a0a973e8f014d5e2b13f0c09d698a56e563b
 const publicK = '4d031dfec57633364efc929e652b438ad100e89319f89cb6754aa347e6e38e5c';
 
 const useAptos = () => {
-    const { account, signAndSubmitTransaction } = useWallet();
+    const { signAndSubmitTransaction } = useWallet();
 
     const signSignature = (message: string): [string, string] => {
         const privateKey = new Ed25519PrivateKey(privateK);

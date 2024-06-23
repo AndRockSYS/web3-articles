@@ -58,9 +58,12 @@ export default function Banner() {
     return (
         <div className='banner'>
             {useMemo(
-                () => (
-                    <Image src={banners[0]} alt='banner' height={150} width={1000} priority />
-                ),
+                () =>
+                    banners.length ? (
+                        <Image src={banners[0]} alt='banner' height={150} width={1000} priority />
+                    ) : (
+                        <></>
+                    ),
                 [banners]
             )}
             {isOwner ? (

@@ -1,16 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { sendArticleRequest, sendImageRequest } from '@/utils/firebase';
 
 import { Article } from 'typings';
+import { ArticleContext } from '@/context/ArticleProvider';
 
 const useFirebase = () => {
-    const [articles, setArticles] = useState<Article[]>([]);
+    const { articles, setArticles } = useContext(ArticleContext);
 
     useEffect(() => {
-        sendArticleRequest('POST').then((data) => setArticles(Object.values(data)));
+        if (!articles.length)
+            sendArticleRequest('POST').then((data) => {
+                const sorted = Object.values<Article>(data).sort(
+                    (a, b) => b.timestamp - a.timestamp
+                );
+                setArticles(sorted);
+            });
     }, []);
 
     const getBanners = async (): Promise<string[]> => {
@@ -18,6 +25,11 @@ const useFirebase = () => {
     };
 
     const getArticle = async (articleAddress: string): Promise<Article> => {
+        if (articles.length) {
+            for (let article of articles) {
+                if (article.tokenId == articleAddress) return article;
+            }
+        }
         return await sendArticleRequest('POST', articleAddress);
     };
 

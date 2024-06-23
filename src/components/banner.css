@@ -2,7 +2,7 @@ div.banner {
     position: relative;
 
     width: 80dvw;
-    height: 12rem;
+    height: calc(80dvw / 5);
 
     display: flex;
     justify-content: center;

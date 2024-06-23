@@ -2,19 +2,19 @@
 
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
+import { useWallet } from '@aptos-labs/wallet-adapter-react';
 
+import useFirebase from '@/hooks/useFirebase';
 import useTags from '@/hooks/useTags';
 import useAptos from '@/hooks/useAptos';
 
 import EditTools from './EditTools';
 
-import { args, packArticle, updateImages } from '@/utils/dataManager';
+import { collectData, updateImages } from '@/utils/articleManager';
 import { toTag } from '@/utils/tagsConverter';
-import imageCompressor from '@/utils/imageCompressor';
+import { imageCompressor } from '@/utils/imageCompressor';
 
 import './add-article.css';
-import { useWallet } from '@aptos-labs/wallet-adapter-react';
-import useFirebase from '@/hooks/useFirebase';
 
 export default function AddArticle() {
     const { account } = useWallet();
@@ -38,36 +38,28 @@ export default function AddArticle() {
         list.style.display = list.style.display.includes('none') ? 'block' : 'none';
     };
 
-    const unactiveTags = (
-        <ul>
-            {tags.map((tag) => (
-                <option
-                    key={tag}
-                    value={tag}
-                    onClick={() => {
-                        setSelectedTag(tag);
-                        openCloseTags();
-                    }}
-                >
-                    {tag}
-                </option>
-            ))}
-        </ul>
-    );
-
     const postNewArticle = async () => {
-        if (!account) return;
-        const [title, description] = args();
+        try {
+            if (!account) {
+                alert('Connect Wallet');
+                return;
+            }
 
-        if (!title || !description) {
-            alert('Fill the article');
-            return;
+            const article = collectData(account.address);
+            if (!article) {
+                alert('Fill the article');
+                return;
+            }
+
+            const tokenId = await sendArticle(article.title, article.description);
+
+            await updateImages(tokenId, uploadImage);
+            await addArticle(tokenId, article);
+
+            alert('Article was added');
+        } catch (error) {
+            alert('An error occured');
         }
-        const tokenId = await sendArticle(title, description);
-        await updateImages(tokenId, uploadImage);
-        const article = packArticle(account.address, tokenId, selectedTag);
-        if (!article) return;
-        await addArticle(tokenId, article);
     };
 
     return (
@@ -115,7 +107,7 @@ export default function AddArticle() {
                 custom-placeholder='Give it a title'
                 id='title'
                 contentEditable
-                onInput={(event) => cutToLimit(25, event)}
+                onInput={(event) => cutToLimit(128, event)}
             ></p>
             <div className='tags-input'>
                 {useMemo(
@@ -129,16 +121,33 @@ export default function AddArticle() {
                         ),
                     [selectedTag]
                 )}
-                {unactiveTags}
+                <ul>
+                    {tags.map((tag) => (
+                        <option
+                            key={tag}
+                            value={tag}
+                            onClick={() => {
+                                setSelectedTag(tag);
+                                openCloseTags();
+                            }}
+                        >
+                            {tag}
+                        </option>
+                    ))}
+                </ul>
             </div>
             <p
                 custom-placeholder='Now a short description'
                 id='description'
                 contentEditable
-                onInput={(event) => cutToLimit(50, event)}
+                onInput={(event) => cutToLimit(2048, event)}
             ></p>
             <div className='article'>
-                <p id='article' contentEditable custom-placeholder='What do you want to do'></p>
+                <p
+                    id='article'
+                    contentEditable
+                    custom-placeholder='What do you want to write about?'
+                ></p>
             </div>
             <EditTools />
         </main>

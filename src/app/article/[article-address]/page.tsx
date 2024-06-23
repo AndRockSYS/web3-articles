@@ -26,7 +26,13 @@ export default function ArticlePage() {
     const deleteButton = useMemo(
         () =>
             account?.address.includes(process.env.NEXT_PUBLIC_OWNER as string) && article ? (
-                <button id='red-button' onClick={() => deleteArticle(article?.tokenId)}>
+                <button
+                    id='red-button'
+                    onClick={async () => {
+                        await deleteArticle(article?.tokenId);
+                        alert('Article was deleted');
+                    }}
+                >
                     Delete
                 </button>
             ) : (

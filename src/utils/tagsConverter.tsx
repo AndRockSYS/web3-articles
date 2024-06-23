@@ -18,7 +18,7 @@ export function toAuthorTag(address: string): JSX.Element {
 export function toDateTag(timestamp: number): JSX.Element {
     const date = new Date(timestamp);
 
-    const day = date.getDay();
+    const day = date.getDate();
     const month = date.toLocaleString('en', { month: 'short' });
 
     return (

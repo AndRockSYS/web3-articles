@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import ArticleCell from '@/components/ArticleCell';
@@ -16,19 +17,21 @@ export default function Category() {
     const tag = searchParams.get('category');
 
     return (
-        <main className='category'>
-            <h1>{tag}</h1>
-            <div>
-                {useMemo(() => {
-                    return articles.map((article) =>
-                        article.tag == tag ? (
-                            <ArticleCell key={article.tokenId} article={article} />
-                        ) : (
-                            <></>
-                        )
-                    );
-                }, [articles])}
-            </div>
-        </main>
+        <Suspense>
+            <main className='category'>
+                <h1>{tag}</h1>
+                <div>
+                    {useMemo(() => {
+                        return articles.map((article) =>
+                            article.tag == tag ? (
+                                <ArticleCell key={article.tokenId} article={article} />
+                            ) : (
+                                <></>
+                            )
+                        );
+                    }, [articles])}
+                </div>
+            </main>
+        </Suspense>
     );
 }

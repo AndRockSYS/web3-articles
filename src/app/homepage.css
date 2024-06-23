@@ -1,6 +1,8 @@
 main.home {
     scroll-behavior: smooth;
 
+    padding-bottom: 4.5rem;
+
     > div.tag-list {
         display: flex;
         column-gap: 0.5rem;
@@ -10,7 +12,7 @@ main.home {
     > section {
         width: 80%;
 
-        padding: 1rem;
+        padding: 0 1rem;
 
         @media screen and (max-width: 900px) {
             width: 100%;
@@ -33,7 +35,7 @@ main.home {
             width: 100%;
 
             display: grid;
-            grid-template-columns: repeat(3, calc(100% / 3));
+            grid-template-columns: repeat(3, calc((100% - 2rem) / 3));
             justify-content: center;
 
             gap: 1rem;
@@ -46,7 +48,7 @@ main.home {
                 padding: 1rem 0;
 
                 > article {
-                    max-width: 100%;
+                    width: 100%;
                     max-height: fit-content;
 
                     border-left: none;

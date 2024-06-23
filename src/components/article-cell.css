@@ -19,7 +19,10 @@ article.preview {
     }
 
     > div {
+        width: 100%;
+
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         column-gap: 0.5rem;
     }

@@ -21,6 +21,9 @@ main.article {
     > * {
         width: var(--width);
         max-width: var(--width);
+
+        font-family: inherit;
+        color: var(--text);
     }
 
     > h1 > span {

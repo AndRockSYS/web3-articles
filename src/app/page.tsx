@@ -11,7 +11,7 @@ import useTags from '@/hooks/useTags';
 import './homepage.css';
 
 export default function Home() {
-    const { articles } = useFirebase();
+    const { articles, banners, getBanners, setBanners, uploadImage, deleteArticle } = useFirebase();
     const { tags } = useTags();
 
     return (
@@ -28,7 +28,13 @@ export default function Home() {
                 ))}
             </div>
 
-            <Banner />
+            <Banner
+                banners={banners}
+                getBanners={getBanners}
+                setBanners={setBanners}
+                uploadImage={uploadImage}
+                deleteArticle={deleteArticle}
+            />
             {tags.map((tag, index) => {
                 let amount = 0;
                 return (

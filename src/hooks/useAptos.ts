@@ -25,8 +25,6 @@ const useAptos = () => {
     };
 
     const sendArticle = async (name: string, description: string): Promise<string> => {
-        toVectorU8('4d031dfec57633364efc929e652b438ad100e89319f89cb6754aa347e6e38e5c');
-
         const [signature, hashedMessage] = signSignature(name + description);
 
         const tx: InputTransactionData = {

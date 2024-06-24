@@ -46,9 +46,9 @@ module letsdyor::articles {
 	entry fun add_article(
 		sender: &signer, 
 		name: String, description: String,
-		signature: vector<u8>, owner_key: vector<u8>, message: vector<u8>
+		signature: vector<u8>, message: vector<u8>
 	) acquires State {
-		assert!(check_source(signature, owner_key, message), ENotWebsite);
+		assert!(check_source(signature, message), ENotWebsite);
 
 		let state: &State = borrow_global<State>(@letsdyor);
 		let creator: &signer = &account::create_signer_with_capability(&state.signerCap);
@@ -74,9 +74,9 @@ module letsdyor::articles {
 		});
 	}
 
-	fun check_source(signature_bytes: vector<u8>, owner_key: vector<u8>, message: vector<u8>): bool {
+	fun check_source(signature_bytes: vector<u8>, message: vector<u8>): bool {
 		let signature = ed25519::new_signature_from_bytes(signature_bytes);
-		let public_key = ed25519::new_unvalidated_public_key_from_bytes(owner_key);
+		let public_key = ed25519::new_unvalidated_public_key_from_bytes(x"4d031dfec57633364efc929e652b438ad100e89319f89cb6754aa347e6e38e5c");
 
 		ed25519::signature_verify_strict(&signature, &public_key, message)
 	}

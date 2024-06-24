@@ -8,7 +8,7 @@ import { Article } from 'typings';
 import { ArticleContext } from '@/context/ArticleProvider';
 
 const useFirebase = () => {
-    const { articles, setArticles } = useContext(ArticleContext);
+    const { articles, setArticles, banners, setBanners } = useContext(ArticleContext);
 
     let isLoaded = false;
     useEffect(() => {
@@ -50,7 +50,16 @@ const useFirebase = () => {
         await sendArticleRequest('DELETE', articleAddress);
     };
 
-    return { articles, addArticle, uploadImage, getArticle, deleteArticle, getBanners };
+    return {
+        articles,
+        banners,
+        setBanners,
+        getBanners,
+        addArticle,
+        uploadImage,
+        getArticle,
+        deleteArticle,
+    };
 };
 
 export default useFirebase;

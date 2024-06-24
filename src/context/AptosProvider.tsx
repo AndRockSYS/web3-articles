@@ -10,5 +10,9 @@ export default function AptosProvider({
 }>) {
     const wallets = [new PetraWallet()];
 
-    return <AptosWalletAdapterProvider plugins={wallets}>{children}</AptosWalletAdapterProvider>;
+    return (
+        <AptosWalletAdapterProvider plugins={wallets} autoConnect>
+            {children}
+        </AptosWalletAdapterProvider>
+    );
 }

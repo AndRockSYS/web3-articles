@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
 import { PetraWalletName } from 'petra-plugin-wallet-adapter';
@@ -13,7 +13,11 @@ import './navbar.css';
 export default function Navbar() {
     const path = usePathname();
 
-    const { connect, account } = useWallet();
+    const { connect, account, network } = useWallet();
+
+    useEffect(() => {
+        if (network && network.chainId != '1') alert('Change network to Mainnet');
+    }, [network]);
 
     const buttonMessage = useMemo(
         () =>

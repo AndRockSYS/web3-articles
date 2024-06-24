@@ -1,63 +1,78 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo } from 'react';
 
 import { useWallet } from '@aptos-labs/wallet-adapter-react';
-
-import useFirebase from '@/hooks/useFirebase';
 
 import { bannerCompressor } from '@/utils/imageCompressor';
 
 import './banner.css';
 
-export default function Banner() {
+interface Props {
+    banners: string[];
+    getBanners: () => Promise<string[]>;
+    setBanners: Dispatch<SetStateAction<string[]>>;
+    uploadImage: (articleAddress: string, image: string) => Promise<string>;
+    deleteArticle: (articleAddress: string) => Promise<void>;
+}
+
+export default function Banner({
+    banners,
+    getBanners,
+    setBanners,
+    uploadImage,
+    deleteArticle,
+}: Props) {
     const { account } = useWallet();
-    const { uploadImage, getBanners, deleteArticle } = useFirebase();
 
-    const [banners, setBanners] = useState<string[]>([]);
-    const [slide, setSlide] = useState(0);
-
-    const imageRef = useRef<HTMLImageElement>(null);
+    let curr = 0;
 
     useEffect(() => {
-        getBanners().then((links) => setBanners(links));
-    }, []);
+        if (!banners.length) getBanners().then((data) => setBanners(data));
+        else autoLoop();
+    }, [banners.length]);
 
-    const autoLoop = async (curr: number) => {
-        if (banners.length < 2 || !imageRef.current) return;
+    const autoLoop = async () => {
+        if (banners.length < 2) return;
 
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-
-        imageRef.current.style.opacity = '0';
-
-        await new Promise((resolve) => setTimeout(resolve, 500));
+        const image = document.querySelector('div.banner img.banner') as HTMLImageElement;
+        if (!image) return;
 
         if (curr == banners.length - 1) curr = 0;
         else curr++;
 
-        imageRef.current.src = banners[curr];
+        await new Promise((resolve) => setTimeout(resolve, 3000));
 
-        imageRef.current.style.opacity = '1';
-
-        autoLoop(curr);
-    };
-
-    const shuffle = async (isNext: boolean) => {
-        const image = document.querySelector('.banner img.banner') as HTMLImageElement;
         image.style.opacity = '0';
 
         await new Promise((resolve) => setTimeout(resolve, 500));
 
+        image.src = banners[curr];
+
+        image.style.opacity = '1';
+
+        autoLoop();
+    };
+
+    const shuffle = async (isNext: boolean) => {
         if (banners.length < 2) return;
 
+        const image = document.querySelector('.banner img.banner') as HTMLImageElement;
+
+        image.style.opacity = '0';
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
         if (isNext) {
-            if (slide == banners.length - 1) setSlide(0);
-            else setSlide(slide + 1);
+            if (curr == banners.length - 1) curr = 0;
+            else curr++;
         } else {
-            if (slide == 0) setSlide(banners.length - 1);
-            else setSlide(slide - 1);
+            if (curr == 0) curr = banners.length - 1;
+            else curr--;
         }
+
+        image.src = banners[curr];
 
         image.style.opacity = '1';
     };
@@ -69,39 +84,30 @@ export default function Banner() {
 
     return (
         <div className='banner'>
-            {useMemo(
-                () =>
-                    banners.length ? (
-                        <div className='image-container'>
-                            <Image
-                                src={'/icons/arrow-left.svg'}
-                                alt='left'
-                                height={32}
-                                width={32}
-                                onClick={() => shuffle(false)}
-                            />
-                            <Image
-                                className='banner'
-                                ref={imageRef}
-                                src={banners[slide]}
-                                alt='banner'
-                                height={150}
-                                width={1000}
-                                priority
-                            />
-                            <Image
-                                src={'/icons/arrow-right.svg'}
-                                alt='left'
-                                height={32}
-                                width={32}
-                                onClick={() => shuffle(true)}
-                            />
-                        </div>
-                    ) : (
-                        <></>
-                    ),
-                [banners, slide]
-            )}
+            <div className='image-container'>
+                <Image
+                    src={'/icons/arrow-left.svg'}
+                    alt='left'
+                    height={32}
+                    width={32}
+                    onClick={() => shuffle(false)}
+                />
+                <Image
+                    className='banner'
+                    src={'/logo.svg'}
+                    alt='banner'
+                    height={150}
+                    width={1000}
+                    priority
+                />
+                <Image
+                    src={'/icons/arrow-right.svg'}
+                    alt='left'
+                    height={32}
+                    width={32}
+                    onClick={() => shuffle(true)}
+                />
+            </div>
             {isOwner ? (
                 <>
                     <button id='blue-button'>
